@@ -971,6 +971,20 @@ const st=document.createElement('style');st.textContent=`
 .st{flex:none;border:1px solid var(--bd);background:var(--bg);border-radius:99px;padding:5px 11px;font-size:.78rem;font-weight:600;cursor:pointer;color:var(--mut)}
 .st.ok{background:color-mix(in srgb,var(--ok) 18%,var(--card));border-color:var(--ok);color:var(--ok)}
 li.paid .n span{text-decoration:line-through;opacity:.55}
+#yt{text-transform:none}
+li.it{display:grid;grid-template-columns:10px minmax(0,1fr) auto;gap:6px 10px;align-items:center}
+li.it .n{min-width:0;overflow-wrap:anywhere}
+li.it .acts2{grid-column:2 / -1;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+li.it .acts2 .x{margin-left:auto;padding:4px 6px}
+li.it .acts2 .x.sr{margin-left:auto}
+li.it .acts2 .x.sr+.x{margin-left:0}
+@media(max-width:640px){
+ .ex select,.ex input{flex:1 1 100%}
+ .ygrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .yc{padding:8px 10px;font-size:.82rem}
+ .ghbox .row input{flex:1 1 100%}
+}
+
 `;document.head.appendChild(st);
 
 /* ---------- humor: feliz / sério / chorando ---------- */
@@ -1010,7 +1024,7 @@ const mon=ym=>S.months[ym]||(S.months[ym]={income:0,meta:0,items:[],inv:[]});
 [['lf','fixo'],['lv','var']].forEach(([id])=>{
  const r=document.createElement('div');r.className='row ex';
  r.innerHTML='<select class="rp"><option value="r">Fixo: repetir todo mês</option><option value="p">Parcelado (ex.: 12x)</option><option value="1">Só este mês</option></select><input class="pn" type="number" min="2" max="120" placeholder="Nº de parcelas (ex.: 12)" style="display:none"><select class="pm" style="display:none"><option value="e">Valor de cada parcela</option><option value="t">Valor total (dividir)</option></select>';
- $(id).before(r);if(id==='lv')r.querySelector('.rp').value='1';
+ $(id).before(r);r.append($(id==='lf'?'fa':'va'));if(id==='lv')r.querySelector('.rp').value='1';
  r.querySelector('.rp').onchange=e=>{const p=e.target.value==='p';r.querySelector('.pn').style.display=p?'':'none';r.querySelector('.pm').style.display=p?'':'none'};
 });
 const _add=add;
@@ -1038,10 +1052,10 @@ list=function(el,arr,type,key){
  const mm=S.ym.slice(5),a=type?M()[arr].filter(i=>i.type===type):M()[arr];
  el.innerHTML=a.length?'':'<li class="empty">Nada por aqui ainda.</li>';
  a.forEach(i=>{const li=document.createElement('li'),tag=i.pn?' · parcela '+i.pc+'/'+i.pn:i.rec?' · todo mês':'';
-  li.className=(key==='items'&&i.paid)?'paid':'';li.innerHTML='<span class="sw" style="background:'+(i.cat?color(i.cat):'var(--ac)')+'"></span><span class="n"><span></span><small>'+(i.cat?i.cat+' · ':'')+p2(i.day||1)+'/'+mm+tag+'</small></span><b>'+money(i.val)+'</b>'
+  li.className=key==='items'?('it'+(i.paid?' paid':'')):'';li.innerHTML='<span class="sw" style="background:'+(i.cat?color(i.cat):'var(--ac)')+'"></span><span class="n"><span></span><small>'+(i.cat?i.cat+' · ':'')+p2(i.day||1)+'/'+mm+tag+'</small></span><b>'+money(i.val)+'</b>'+(key==='items'?'<div class="acts2">':'')
    +(key==='items'?'<button type="button" class="st'+(i.paid?' ok':'')+'" title="Clique para alternar entre pago e pendente">'+(i.paid?'Pago':'Pendente')+'</button>':'')
    +(i.grp?'<button class="x sr" title="Remover este e os próximos meses" aria-label="Remover este e os próximos meses">'+IC('trash')+'</button>':'')
-   +'<button class="x one" title="Remover só este mês" aria-label="Remover">'+IC('x')+'</button>';
+   +'<button class="x one" title="Remover só este mês" aria-label="Remover">'+IC('x')+'</button>'+(key==='items'?'</div>':'');
   li.querySelector('.n span').textContent=noEmo(i.name);
   const st=li.querySelector('.st');if(st)st.onclick=()=>{i.paid=!i.paid;save();render()};
   li.querySelector('.one').onclick=()=>{if(i.rec){const r=(S.rec||[]).find(z=>z.id===i.grp);if(r)(r.skip=r.skip||[]).push(S.ym)}M()[key]=M()[key].filter(z=>z.id!==i.id);save();render()};
