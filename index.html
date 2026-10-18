@@ -238,22 +238,71 @@ li .x{background:none;border:0;color:var(--mut);cursor:pointer;font-size:18px}li
  .calh h2{font-size:1rem}
 }
 @media(pointer:coarse){input,select,textarea{font-size:16px}.btn,.chars button{min-height:44px}.dot{width:28px;height:28px}}
+
+.gcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:12px}
+.gc{text-align:left;border:1px solid var(--bd);background:var(--card);border-radius:14px;padding:10px 12px;cursor:pointer;display:flex;flex-direction:column;gap:6px;min-width:0}
+.gc.on{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 12%,var(--card))}
+.gc b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gc small{color:var(--mut)}
+.gc.add{align-items:center;justify-content:center;border-style:dashed;color:var(--mut);font-weight:600;min-height:72px}
+.gpre{display:none;flex-wrap:wrap;gap:8px;margin:0 0 14px}.gpre.on{display:flex}
+.gpre small{width:100%;color:var(--mut)}
+/* ---------- porquinho no estilo dos personagens ---------- */
+.pigstage{--pk:#ffb7cd;--pk2:#ff9fbd;--pk3:#ffe3ec}
+.pigstage.gold{--pk:#ffd966;--pk2:#ffb84a;--pk3:#fff3c4}
+.pigstage svg{max-width:250px}
+#pigsvg path,#pigsvg ellipse,#pigsvg rect,#pigsvg circle{transition:fill .9s,stroke .9s}
+#pigs{transform-origin:100px 236px;transition:transform 1s cubic-bezier(.3,1.5,.5,1)}
+.cape{transform-origin:100px 166px}
+.crown{opacity:0;transform:translateY(-30px) scale(.6);transform-origin:100px 58px;transition:opacity .6s,transform .8s cubic-bezier(.3,1.7,.5,1)}
+#pigsvg.gold .crown{opacity:1;transform:none}
+.medal,.gs,.fc,.cape{opacity:0;transition:opacity .8s}
+#pigsvg.gold .medal,#pigsvg.gold .gs,#pigsvg.gold .fc{opacity:1}
+#pigsvg.gold .cape{opacity:1;animation:cp 1.6s ease-in-out infinite}
+.gs text{animation:twk 1.3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes twk{50%{transform:scale(1.35) rotate(14deg);opacity:.65}}
+.fc circle{animation:cfall 2.8s linear infinite;opacity:0}
+@keyframes cfall{0%{transform:translateY(-16px);opacity:0}12%{opacity:1}85%{opacity:1}100%{transform:translateY(250px);opacity:0}}
+#pigsvg.gold #pigs{filter:drop-shadow(0 0 10px rgba(255,212,71,.85))}
+@media(prefers-reduced-motion:reduce){.fc circle,.gs text{animation:none}}
+/* ---------- cenário do porquinho ---------- */
+.pigstage{overflow:hidden;min-height:340px;--sk1:#ffd6ea;--sk2:#fff1f7;--hl:#b6ec7a;--hd:#96d95f;--bu:#7fd68a;--cl:#ffffff}
+.pigstage.gold{--sk1:#ffb48a;--sk2:#ffeaa8;--hl:#a8e85c;--hd:#8ad345;--bu:#4fc062}
+.pigstage svg.pscene{position:absolute;inset:0;width:100%;height:100%;max-width:none;z-index:0;pointer-events:none}
+.pigstage #pigsvg{position:relative;z-index:1}
+.pigstage .chip{z-index:2}
+.rb{opacity:0;transition:opacity 1s}
+.pigstage.gold .rb{opacity:1}
+.pigstage.gold .sun{opacity:1}
+.pigstage .sun{transition:opacity .8s}
+/* ---------- abas ---------- */
+.tp{display:none}.tp.on{display:block;animation:tpin .25s ease}
+@keyframes tpin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.tp.on{animation:none}}
+.wrap{padding-bottom:120px}
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;gap:4px;width:min(680px,calc(100% - 20px));padding:6px;background:var(--card);border:1px solid var(--bd);border-radius:22px;box-shadow:0 10px 30px -10px rgba(20,10,60,.45)}
+.tabbar button{flex:1 1 0;min-width:0;min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:0;background:none;padding:6px 2px;border-radius:16px;cursor:pointer;color:var(--mut);font-size:.68rem;font-weight:600;line-height:1.1;transition:background .2s,color .2s}
+.tabbar button .ti{font-size:1.4rem;line-height:1}
+.tabbar button.on{background:color-mix(in srgb,var(--ac) 16%,transparent);color:var(--ac)}
+.dayhint{display:block;margin:0 0 12px;color:var(--mut);font-size:.9rem}
+.dayhint b{color:var(--tx)}
+@media(min-width:900px){.tabbar button{flex-direction:row;justify-content:center;gap:8px;font-size:.85rem}.tabbar button .ti{font-size:1.15rem}}
 </style>
 </head>
 <body>
-</head>
 <canvas id="cv" style="position:fixed;inset:0;pointer-events:none;z-index:50"></canvas>
 <div class="wrap">
 <header>
  <h1>💸 Meu <span>Controle Financeiro</span></h1>
  <div class="tools">
-  <span class="cchip off" id="cchip">💾 Só neste aparelho</span>
+  <span class="cchip off" id="cchip" style="display:none !important">💾 Só neste aparelho</span>
   <div class="dots" id="dots" title="Cor do site"></div>
   <button class="btn" id="mode">🌓 Claro/Escuro</button>
  </div>
 </header>
-<div class="ban" id="bkban" hidden><span id="bkbt"></span><button class="btn pri" id="bkuse">Usar a da nuvem</button><button class="btn" id="bkign">Manter a deste aparelho</button></div>
+<div class="ban" id="bkban" hidden style="display:none !important"><span id="bkbt"></span><button class="btn pri" id="bkuse">Usar a da nuvem</button><button class="btn" id="bkign">Manter a deste aparelho</button></div>
 
+<div class="tp" id="tp-home">
 <section class="hero">
  <div class="card">
   <div class="stage m-neu" id="stage">
@@ -281,14 +330,19 @@ li .x{background:none;border:0;color:var(--mut);cursor:pointer;font-size:18px}li
   <div class="bar"><i id="mb" style="width:0"></i></div>
  </div>
 </section>
+</div>
 
+<div class="tp" id="tp-cal">
 <section class="card" style="margin-bottom:16px">
  <div class="calh"><button class="btn" id="pm" aria-label="Mês anterior">◀</button><h2 id="mt"></h2><button class="btn" id="td">Hoje</button><button class="btn" id="nx" aria-label="Próximo mês">▶</button></div>
  <div class="year" id="year"></div>
  <div class="cgrid" id="cg"></div>
  <div class="dayp"><b id="dh"></b><ul id="dl"></ul></div>
 </section>
+</div>
 
+<div class="tp" id="tp-gastos">
+<small class="dayhint">📅 Lançando no dia <b class="dh"></b> (para mudar o dia, escolha no Calendário)</small>
 <section class="grid">
  <div class="card">
   <h2>📌 Gastos fixos</h2>
@@ -300,51 +354,42 @@ li .x{background:none;border:0;color:var(--mut);cursor:pointer;font-size:18px}li
   <div class="row"><input id="vn" placeholder="Ex.: Mercado"><input id="vv" type="number" min="0" step="0.01" placeholder="Valor"><select id="vc"></select><button class="btn pri" id="va">Adicionar</button></div>
   <ul id="lv"></ul>
  </div>
+</section>
+</div>
+
+<div class="tp" id="tp-invest">
+<small class="dayhint">📅 Lançando no dia <b class="dh"></b> (para mudar o dia, escolha no Calendário)</small>
+<section class="grid">
  <div class="card full">
   <h2>📈 Investimentos do mês</h2>
   <div class="row"><input id="in" placeholder="Ex.: Tesouro Direto"><input id="iv" type="number" min="0" step="0.01" placeholder="Valor"><button class="btn pri" id="ia">Adicionar</button></div>
   <ul id="li"></ul>
  </div>
  <div class="card full">
-  <h2>🐷 Meu porquinho da meta</h2>
+  <h2>🎯 Minhas metas</h2>
+  <div class="gcards" id="gcards"></div>
+  <div class="gpre" id="gpre"></div>
   <div class="pigrow">
-   <div class="pigstage" id="pigstage">
+   <div class="pigstage m-neu" id="pigstage">
+    <svg class="pscene" id="pscene" viewBox="0 0 400 420" preserveAspectRatio="xMidYMax slice" aria-hidden="true"></svg>
     <span class="chip" id="gst"></span>
-    <svg id="pigsvg" viewBox="0 0 240 210" role="img" aria-label="Porquinho da meta">
-     <defs><clipPath id="pbc"><ellipse cx="120" cy="124" rx="78" ry="62"/></clipPath></defs>
-     <ellipse cx="120" cy="205" rx="74" ry="6" fill="rgba(0,0,0,.2)"/>
-     <g id="pigs">
-      <g class="cape"><path d="M66 92 Q4 150 18 200 L222 200 Q236 150 174 92Z" fill="#e63950" stroke="#2a1d3a" stroke-width="3" stroke-linejoin="round"/><path d="M70 104 Q44 150 50 194 M120 100 L120 196 M170 104 Q196 150 190 194" stroke="#b81f3a" stroke-width="4" fill="none" opacity=".7"/></g>
-      <g class="pb"><g class="pw">
-       <path d="M196 122 Q222 112 214 96 Q208 88 200 96" fill="none" stroke="#2a1d3a" stroke-width="9" stroke-linecap="round"/><path d="M196 122 Q222 112 214 96 Q208 88 200 96" fill="none" stroke="#ff9db8" stroke-width="4" stroke-linecap="round"/>
-       <ellipse cx="92" cy="186" rx="16" ry="13" fill="#ffa3bf" stroke="#2a1d3a" stroke-width="3"/><ellipse cx="148" cy="186" rx="16" ry="13" fill="#ffa3bf" stroke="#2a1d3a" stroke-width="3"/>
-       <ellipse cx="120" cy="124" rx="78" ry="62" fill="#ffb3c9" stroke="#2a1d3a" stroke-width="3"/>
-       <path d="M58 92 L54 52 L98 70Z" fill="#ffa3bf" stroke="#2a1d3a" stroke-width="3" stroke-linejoin="round"/><path d="M64 86 L62 62 L86 72Z" fill="#ff7fa6"/>
-       <path d="M182 92 L186 52 L142 70Z" fill="#ffa3bf" stroke="#2a1d3a" stroke-width="3" stroke-linejoin="round"/><path d="M176 86 L178 62 L154 72Z" fill="#ff7fa6"/>
-       <rect x="102" y="64" width="36" height="7" rx="3.5" fill="#7a2f4a"/>
-       <ellipse cx="86" cy="86" rx="22" ry="11" fill="#fff" opacity=".4" transform="rotate(-20 86 86)"/>
-       <circle cx="70" cy="134" r="9" fill="#ff5f8f" opacity=".45"/><circle cx="170" cy="134" r="9" fill="#ff5f8f" opacity=".45"/>
-       <ellipse cx="90" cy="108" rx="10" ry="11" fill="#fff" stroke="#2a1d3a" stroke-width="2.5"/><circle cx="91" cy="110" r="6.5" fill="#2a1d3a"/><circle cx="88.5" cy="106.5" r="2.6" fill="#fff"/>
-       <ellipse cx="150" cy="108" rx="10" ry="11" fill="#fff" stroke="#2a1d3a" stroke-width="2.5"/><circle cx="149" cy="110" r="6.5" fill="#2a1d3a"/><circle cx="146.5" cy="106.5" r="2.6" fill="#fff"/>
-       <ellipse cx="120" cy="136" rx="30" ry="22" fill="#ff9db8" stroke="#2a1d3a" stroke-width="3"/><ellipse cx="110" cy="136" rx="3.5" ry="6" fill="#c2476b"/><ellipse cx="130" cy="136" rx="3.5" ry="6" fill="#c2476b"/>
-       <path d="M106 163 Q120 173 134 163" fill="none" stroke="#2a1d3a" stroke-width="3" stroke-linecap="round"/>
-       <g clip-path="url(#pbc)" class="shw"><rect class="sheen" x="-40" y="50" width="30" height="170" fill="#fff" opacity=".55"/></g>
-      </g></g>
-      <g class="clasp"><circle cx="52" cy="106" r="8" fill="#ffd447" stroke="#2a1d3a" stroke-width="3"/><circle cx="188" cy="106" r="8" fill="#ffd447" stroke="#2a1d3a" stroke-width="3"/><circle cx="50" cy="104" r="2.5" fill="#fff" opacity=".8"/><circle cx="186" cy="104" r="2.5" fill="#fff" opacity=".8"/></g>
-      <circle class="coin" cx="120" cy="30" r="9" fill="#ffd447" stroke="#2a1d3a" stroke-width="3"/>
-     </g>
-     <g class="gs"><text x="14" y="50" font-size="20">✨</text><text x="206" y="44" font-size="22">✨</text><text x="24" y="120" font-size="16">⭐</text><text x="208" y="130" font-size="16">⭐</text><text x="108" y="22" font-size="18">✨</text></g>
-    </svg>
+    <svg id="pigsvg" viewBox="0 0 200 240" role="img" aria-label="Porquinho da meta"></svg>
    </div>
    <div class="pigform">
-    <div class="row"><input id="gn" placeholder="Para quê? (ex.: Viagem)"><input id="gt" type="number" min="0" step="0.01" placeholder="Meta (R$)"><input id="gb" type="number" min="0" step="0.01" placeholder="Já guardei (R$)"></div>
+    <div class="row"><input id="gn" placeholder="Nome da meta (ex.: Casa)"><input id="gt" type="number" min="0" step="0.01" placeholder="Meta (R$)"><input id="gb" type="number" min="0" step="0.01" placeholder="Já guardei (R$)"></div>
     <div class="bar big"><i id="gbar" style="width:0"></i></div>
     <p id="gtxt" class="gtxt"></p>
     <div class="row"><input id="gv" type="number" min="0" step="0.01" placeholder="Quanto vai guardar agora? (R$)"><button class="btn pri" id="gadd">🪙 Guardar no porquinho</button></div>
     <small style="color:var(--mut)">O valor entra no dia selecionado do calendário e conta como investimento do mês.</small>
+    <div class="row" style="margin-top:12px"><button class="btn" id="gdel" type="button">🗑️ Excluir esta meta</button></div>
    </div>
   </div>
  </div>
+</section>
+</div>
+
+<div class="tp" id="tp-graf">
+<section class="grid">
  <div class="card full">
   <h2>📊 Com o que você mais gasta</h2>
   <div class="chart">
@@ -353,18 +398,23 @@ li .x{background:none;border:0;color:var(--mut);cursor:pointer;font-size:18px}li
   </div>
   <div class="top" id="top"></div>
  </div>
+</section>
+</div>
+
+<div class="tp" id="tp-bk">
+<section class="grid">
  <div class="card full bk">
   <h2>💾 Meus dados e backup</h2>
-  <p class="bst" id="bkst">Verificando o backup…</p>
+  <p class="bst" id="bkst">Baixe o arquivo de backup de vez em quando para não perder nada.</p>
   <div class="acts">
-   <button class="btn pri" id="bkNow">☁️ Salvar cópia agora</button>
+   <button class="btn pri" id="bkNow" style="display:none">☁️ Salvar cópia agora</button>
    <button class="btn" id="bkDl">⬇️ Baixar arquivo</button>
    <label class="btn" for="bkUp">📂 Restaurar de arquivo</label><input id="bkUp" type="file" accept=".json,application/json" hidden>
    <button class="btn" id="bkUndo" hidden>↩️ Desfazer restauração</button>
   </div>
   <div class="ban" id="bkcf" hidden><span id="bkcft"></span><button class="btn pri" id="bkyes">Sim, restaurar</button><button class="btn" id="bkno">Cancelar</button></div>
-  <h3>Cópias dos últimos dias</h3>
-  <ul id="bkl"><li class="empty">Carregando…</li></ul>
+  <h3 style="display:none">Cópias dos últimos dias</h3>
+  <ul id="bkl" style="display:none"><li class="empty">Carregando…</li></ul>
   <details id="bkdet"><summary>Backup em texto (copiar e colar)</summary>
    <textarea id="bkTxt" placeholder="Toque em “Gerar código” e guarde o texto. Para restaurar, cole o código aqui."></textarea>
    <div class="acts"><button class="btn" id="bkGen">Gerar código</button><button class="btn" id="bkCopy">Copiar</button><button class="btn" id="bkPaste">Restaurar deste texto</button></div>
@@ -373,6 +423,15 @@ li .x{background:none;border:0;color:var(--mut);cursor:pointer;font-size:18px}li
  </div>
 </section>
 </div>
+</div>
+<nav class="tabbar" aria-label="Seções">
+ <button type="button" data-t="home"><span class="ti">🏠</span>Início</button>
+ <button type="button" data-t="cal"><span class="ti">📅</span>Calendário</button>
+ <button type="button" data-t="gastos"><span class="ti">🛍️</span>Gastos</button>
+ <button type="button" data-t="invest"><span class="ti">📈</span>Invest.</button>
+ <button type="button" data-t="graf"><span class="ti">📊</span>Gráficos</button>
+ <button type="button" data-t="bk"><span class="ti">💾</span>Backup</button>
+</nav>
 
 <script>
 const CATS=[['Moradia','#7c5cff'],['Alimentação','#ff6b3d'],['Transporte','#0a9bd8'],['Lazer','#e8449a'],['Saúde','#14a46b'],['Educação','#c99a12'],['Contas','#5b6cff'],['Outros','#8a8aa3']];
@@ -565,27 +624,99 @@ function list(el,arr,type,key){
  });
 }
 
-/* ---------- porquinho da meta ---------- */
-const pigSaved=()=>{let s=S.goal.base||0;for(const k in S.months)(S.months[k].inv||[]).forEach(i=>{if(i.pig)s+=i.val});return s};
-$('gn').oninput=e=>{S.goal.name=e.target.value;save();renderPig()};
-$('gt').oninput=e=>{S.goal.target=parseFloat(e.target.value)||0;save();renderPig()};
-$('gb').oninput=e=>{S.goal.base=parseFloat(e.target.value)||0;save();renderPig()};
+/* ---------- metas + porquinho ---------- */
+const GPRE=[['🏠','Casa'],['🚗','Carro'],['✈️','Viagem'],['🛡️','Reserva de emergência'],['🎓','Estudos'],['💍','Casamento'],['🎯','Outra meta']];
+const gesc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function ensureGoals(){
+ if(!Array.isArray(S.goals)||!S.goals.length){
+  const g=S.goal||{};
+  S.goals=[{id:'g'+Date.now().toString(36),name:g.name||'',target:+g.target||0,base:+g.base||0,icon:'🐷'}];
+ }
+ if(!S.goals.some(g=>g.id===S.gsel))S.gsel=S.goals[0].id;
+ const f=S.goals[0].id;
+ for(const k in S.months)(S.months[k].inv||[]).forEach(i=>{if(i.pig&&!i.gid)i.gid=f});
+}
+const G=()=>{ensureGoals();return S.goals.find(g=>g.id===S.gsel)};
+const goalSaved=g=>{let s=g.base||0;for(const k in S.months)(S.months[k].inv||[]).forEach(i=>{if(i.pig&&i.gid===g.id)s+=i.val});return s};
+const pigSaved=()=>goalSaved(G());
+$('gn').oninput=e=>{G().name=e.target.value;save();renderPig()};
+$('gt').oninput=e=>{G().target=parseFloat(e.target.value)||0;save();renderPig()};
+$('gb').oninput=e=>{G().base=parseFloat(e.target.value)||0;save();renderPig()};
 $('gadd').onclick=()=>{
  const v=parseFloat($('gv').value);if(!(v>0))return;
- M().inv.push({id:Date.now()+Math.random(),name:'🐷 '+(S.goal.name||'Porquinho'),val:v,day:S.day,pig:true});
+ const g=G();
+ M().inv.push({id:Date.now()+Math.random(),name:(g.icon||'🐷')+' '+(g.name||'Meta'),val:v,day:S.day,pig:true,gid:g.id});
  $('gv').value='';save();render();
  const sv=$('pigsvg');sv.classList.add('dep');setTimeout(()=>sv.classList.remove('dep'),1100);
 };
+function addGoal(icon,name){
+ if(S.goals.length>=12)return;
+ const g={id:'g'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),name:name==='Outra meta'?'':name,target:0,base:0,icon:icon};
+ S.goals.push(g);S.gsel=g.id;wasDone=null;$('gpre').classList.remove('on');save();renderPig();
+ setTimeout(()=>{try{$(name==='Outra meta'?'gn':'gt').focus()}catch(e){}},60);
+}
+$('gpre').innerHTML='<small>Escolha o tipo da meta:</small>'+GPRE.map((p,k)=>'<button type="button" class="btn" data-k="'+k+'">'+p[0]+' '+p[1]+'</button>').join('');
+$('gpre').onclick=e=>{const b=e.target.closest('button');if(b){const p=GPRE[+b.dataset.k];addGoal(p[0],p[1])}};
+$('gcards').onclick=e=>{
+ const b=e.target.closest('button');if(!b)return;
+ if(b.id==='gnew'){$('gpre').classList.toggle('on');return}
+ S.gsel=b.dataset.id;wasDone=null;save();renderPig();
+};
+$('gdel').onclick=()=>{
+ const g=G(),n=S.goals.length;
+ if(!confirm(n>1?'Excluir a meta "'+(g.name||'sem nome')+'"? O que você já guardou continua contando como investimento do mês.':'Limpar esta meta? O que você já guardou continua contando como investimento do mês.'))return;
+ for(const k in S.months)(S.months[k].inv||[]).forEach(i=>{if(i.gid===g.id){delete i.pig;delete i.gid}});
+ if(n>1){S.goals=S.goals.filter(x=>x.id!==g.id);S.gsel=S.goals[0].id}else{g.name='';g.target=0;g.base=0;g.icon='🐷'}
+ wasDone=null;save();render();
+};
+const PIGART=()=>`
+<g class="fc">${[[22,0],[52,1.1],[150,.5],[180,1.7],[100,2.2]].map(([x,d])=>`<circle cx="${x}" cy="0" r="7" fill="#ffd447" stroke="${K}" stroke-width="2.5" style="animation-delay:-${d}s"/>`).join('')}</g>
+<g id="pigs"><g class="bod">
+ <g class="cape"><path d="M72 166 Q34 206 38 236 L162 236 Q166 206 128 166Z" fill="#e63950" ${O}/><path d="M76 182 Q56 208 58 232 M100 178 V233 M124 182 Q144 208 142 232" stroke="#b81f3a" stroke-width="3.5" fill="none" stroke-linecap="round" opacity=".6"/></g>
+ <path d="M134 206 Q166 210 161 187 Q158 176 148 185" fill="none" stroke="${K}" stroke-width="10" stroke-linecap="round"/><path d="M134 206 Q166 210 161 187 Q158 176 148 185" fill="none" stroke="var(--pk2)" stroke-width="5" stroke-linecap="round"/>
+ <ellipse cx="80" cy="231" rx="13" ry="7" fill="var(--pk2)" ${O}/><ellipse cx="120" cy="231" rx="13" ry="7" fill="var(--pk2)" ${O}/>
+ <ellipse cx="100" cy="200" rx="36" ry="32" fill="var(--pk)" ${O}/><ellipse cx="100" cy="207" rx="21" ry="19" fill="var(--pk3)"/>
+ <g class="medal"><circle cx="100" cy="208" r="11" fill="#ffd447" stroke="${K}" stroke-width="2.5"/><text x="100" y="214" font-size="15" text-anchor="middle" fill="#fff6c9" stroke="${K}" stroke-width=".6">★</text></g>
+ ${arms('var(--pk)','var(--pk)',66,180)}
+ <g class="hd">
+  <path d="M54 80 Q36 36 82 54Z" fill="var(--pk)" ${O}/><path d="M62 72 Q52 52 76 60Z" fill="var(--pk2)"/>
+  <path d="M146 80 Q164 36 118 54Z" fill="var(--pk)" ${O}/><path d="M138 72 Q148 52 124 60Z" fill="var(--pk2)"/>
+  <ellipse cx="100" cy="112" rx="70" ry="58" fill="var(--pk)" ${O}/>
+  <ellipse cx="68" cy="80" rx="14" ry="7" fill="#fff" opacity=".7" transform="rotate(-25 68 80)"/>
+  <rect x="84" y="61" width="32" height="7" rx="3.5" fill="#7a2f4a"/>
+  <ellipse cx="100" cy="126" rx="26" ry="18" fill="var(--pk2)" stroke="${K}" stroke-width="3"/>
+  <ellipse cx="91" cy="122" rx="3.2" ry="4.6" fill="#c2476b"/><ellipse cx="109" cy="122" rx="3.2" ry="4.6" fill="#c2476b"/>
+  ${face({x:100,y:104,ex:30,my:29})}
+  <g class="crown"><path d="M70 58 L66 24 L84 40 L100 16 L116 40 L134 24 L130 58Z" fill="#ffd447" ${O}/><rect x="70" y="50" width="60" height="9" rx="3" fill="#ffb81f" stroke="${K}" stroke-width="3"/><circle cx="100" cy="31" r="4" fill="#e63950" stroke="${K}" stroke-width="1.5"/><circle cx="82" cy="45" r="3" fill="#6cc4ff" stroke="${K}" stroke-width="1.2"/><circle cx="118" cy="45" r="3" fill="#6cc4ff" stroke="${K}" stroke-width="1.2"/></g>
+ </g>
+</g>
+<circle class="coin" cx="100" cy="22" r="9" fill="#ffd447" stroke="${K}" stroke-width="3"/>
+</g>
+<g class="gs"><text x="10" y="64" font-size="20">✨</text><text x="170" y="52" font-size="22">✨</text><text x="4" y="150" font-size="16">⭐</text><text x="178" y="146" font-size="16">⭐</text><text x="146" y="14" font-size="16">✨</text></g>`;
+$('pigsvg').innerHTML=PIGART();
+const PIGSCENE=()=>{
+ const sky='<defs><linearGradient id="skp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--sk1)"/><stop offset="1" style="stop-color:var(--sk2)"/></linearGradient></defs><rect width="400" height="420" fill="url(#skp)"/>';
+ const rb='<g class="rb" fill="none" stroke-width="9" stroke-linecap="round" opacity=".9">'+['#ff6b8b','#ffb347','#ffe066','#7fd68a','#6cc4ff'].map((c,i)=>'<path d="M'+(70+i*9)+' 300 A'+(130-i*9)+' '+(130-i*9)+' 0 0 1 '+(330-i*9)+' 300" stroke="'+c+'"/>').join('')+'</g>';
+ const barn='<g transform="translate(62 276)"><rect x="-30" y="0" width="60" height="42" fill="#e86a6a" '+LN+'/><path d="M-36 2 L0 -26 L36 2Z" fill="#b84444" '+LN+'/><rect x="-10" y="14" width="20" height="28" fill="#fff6e6" '+LN+'/><path d="M-10 14 L10 42 M10 14 L-10 42" stroke="#2a1d3a" stroke-width="2.2" stroke-linecap="round"/></g>';
+ const fence='<rect x="-10" y="372" width="420" height="6" rx="3" fill="#e8c79a" '+LN+'/><rect x="-10" y="386" width="420" height="6" rx="3" fill="#e8c79a" '+LN+'/>'+Array.from({length:11},(_,i)=>'<rect x="'+(i*40-6)+'" y="362" width="9" height="34" rx="3" fill="#e8c79a" '+LN+'/>').join('');
+ return sky+scSun+rb+scCloud('c1',20,60,1)+scCloud('c3',0,30,.6)+scFar+barn+scTree(344,264,.9)+scNear+fence
+  +scFlower(36,408,'#ff8fc7')+scFlower(90,414,'#ffffff')+scFlower(318,410,'#ffffff')+scFlower(366,414,'#ff8fc7')+scFlower(200,418,'#ffb347');
+};
+$('pscene').innerHTML=PIGSCENE();
+
 function renderPig(){
- const g=S.goal,sv=pigSaved(),p=g.target>0?sv/g.target:0,done=g.target>0&&sv>=g.target;
+ const g=G(),sv=goalSaved(g),p=g.target>0?sv/g.target:0,done=g.target>0&&sv>=g.target;
  [['gn',g.name],['gt',g.target||''],['gb',g.base||'']].forEach(([id,v])=>{if(document.activeElement!==$(id))$(id).value=v});
- $('pigs').style.transform='scale('+(.4+.6*Math.min(p,1))+')';
- $('pigsvg').classList.toggle('gold',done);$('pigstage').classList.toggle('gold',done);
+ $('pigs').style.transform='scale('+(.55+.45*Math.min(p,1))+')';
+ $('pigsvg').classList.toggle('gold',done);$('pigstage').className='pigstage '+(done?'m-happy gold':'m-neu');
  $('gbar').style.width=Math.min(p*100,100)+'%';
- $('gst').textContent=done?'🦸 Super-herói':p>=.6?'🐖 Quase adulto':p>=.25?'🐷 Crescendo':'🐽 Filhote';
- $('gtxt').textContent=g.target<=0?'Diga para que você quer juntar e quanto. O porquinho começa filhote e cresce a cada depósito.':
-  done?'Meta atingida! '+money(sv)+' guardados'+(g.name?' para "'+g.name+'"':'')+'. O porquinho virou um super-herói! 🦸':
+ $('gst').textContent=done?'👑 Meta atingida!':p>=.6?'🐖 Quase lá':p>=.25?'🐷 Crescendo':'🐽 Filhote';
+ $('gtxt').textContent=g.target<=0?'Diga o nome da meta e quanto você quer juntar. O porquinho começa filhote e cresce a cada depósito.':
+  done?'Meta atingida! '+money(sv)+' guardados'+(g.name?' para "'+g.name+'"':'')+'. O porquinho ganhou uma coroa e virou um super-herói! 👑':
   money(sv)+' de '+money(g.target)+' ('+Math.round(p*100)+'%) · faltam '+money(g.target-sv);
+ $('gcards').innerHTML=S.goals.map(x=>{const s2=goalSaved(x),q=x.target>0?Math.min(s2/x.target,1):0;
+  return '<button type="button" class="gc'+(x.id===g.id?' on':'')+'" data-id="'+gesc(x.id)+'"><b>'+gesc(x.icon||'🎯')+' '+gesc(x.name||'Nova meta')+'</b><div class="bar"><i style="width:'+(q*100)+'%"></i></div><small>'+(x.target>0?money(s2)+' de '+money(x.target):money(s2)+' guardados')+'</small></button>'}).join('')
+  +(S.goals.length<12?'<button type="button" class="gc add" id="gnew">＋ Nova meta</button>':'');
  if(wasDone!==null&&done&&!wasDone){pigBurst=true;setTimeout(()=>{pigBurst=false;confetti(cur==='happy')},7000)}
  wasDone=done;
 }
@@ -665,7 +796,7 @@ function render(){
 const DEV=Math.random().toString(36).slice(2,10);
 let DBN=null,UID=null,cloudFirst=true,cloudMeta=null,bkTimer=null,bkBusy=Promise.resolve(),pruned=false,prevS=null,askYes=null;
 const fmtDT=t=>{const d=new Date(t);return p2(d.getDate())+'/'+p2(d.getMonth()+1)+' às '+p2(d.getHours())+':'+p2(d.getMinutes())};
-const hasData=o=>!!o&&(Object.values(o.months||{}).some(m=>m&&(m.income>0||m.meta>0||(m.items||[]).length||(m.inv||[]).length))||(o.goal&&(o.goal.target>0||o.goal.base>0))||!!o.name);
+const hasData=o=>!!o&&(Object.values(o.months||{}).some(m=>m&&(m.income>0||m.meta>0||(m.items||[]).length||(m.inv||[]).length))||(o.goal&&(o.goal.target>0||o.goal.base>0))||(Array.isArray(o.goals)&&o.goals.some(g=>g&&(g.target>0||g.base>0)))||!!o.name);
 const setChip=(ok,t)=>{const c=$('cchip');c.className='cchip '+(ok?'ok':'off');c.textContent=t};
 const bkStatus=t=>{$('bkst').textContent=t};
 const packDoc=o=>({app:'meu-controle-financeiro',v:1,exportedAt:new Date().toISOString(),data:o});
@@ -675,13 +806,13 @@ function cleanState(o){
  const months={},ok=a=>(Array.isArray(a)?a:[]).filter(i=>i&&typeof i.val==='number'&&isFinite(i.val)&&typeof i.name==='string').map(i=>({...i}));
  for(const k in o.months){if(!/^\d{4}-\d{2}$/.test(k))continue;const m=o.months[k]||{};months[k]={income:+m.income||0,meta:+m.meta||0,items:ok(m.items),inv:ok(m.inv)}}
  const g=o.goal||{};
- return{theme:THEMES.some(t=>t[0]===o.theme)?o.theme:'violeta',mode:['auto','light','dark'].includes(o.mode)?o.mode:'auto',char:(Number.isInteger(o.char)&&o.char>=0&&o.char<=4)?o.char:0,name:String(o.name||'').slice(0,60),ym:CUR,day:now.getDate(),months,goal:{name:String(g.name||'').slice(0,80),target:+g.target||0,base:+g.base||0},updatedAt:Date.now()}
+ return{theme:THEMES.some(t=>t[0]===o.theme)?o.theme:'violeta',mode:['auto','light','dark'].includes(o.mode)?o.mode:'auto',char:(Number.isInteger(o.char)&&o.char>=0&&o.char<=4)?o.char:0,name:String(o.name||'').slice(0,60),ym:CUR,day:now.getDate(),months,goal:{name:String(g.name||'').slice(0,80),target:+g.target||0,base:+g.base||0},goals:(Array.isArray(o.goals)?o.goals:[]).slice(0,12).filter(x=>x&&typeof x==='object').map(x=>({id:String(x.id||('g'+Math.random().toString(36).slice(2,8))).slice(0,40),name:String(x.name||'').slice(0,80),target:+x.target||0,base:+x.base||0,icon:String(x.icon||'🎯').slice(0,8)})),gsel:String(o.gsel||'').slice(0,40),updatedAt:Date.now()}
 }
 function applyState(o,msg){
  const c=cleanState(o);
  if(!c){bkStatus('Esse conteúdo não parece ser um backup do Controle Financeiro.');return false}
  if(hasData(S)){prevS=JSON.stringify(S);$('bkUndo').hidden=false}
- S=c;built=-1;scB=-1;
+ S=c;ensureGoals();built=-1;scB=-1;
  try{localStorage.setItem('cf2',JSON.stringify(S))}catch(e){}
  applyLook();render();bkStatus(msg||'Dados restaurados.');cloudSoon();return true
 }
@@ -772,11 +903,30 @@ $('bkCopy').onclick=async()=>{const t=$('bkTxt');if(!t.value)$('bkGen').click();
 $('bkPaste').onclick=()=>{try{const data=unpack(JSON.parse($('bkTxt').value));if(!cleanState(data))throw 0;ask('Restaurar a partir do texto colado? Isso substitui os dados que estão na tela agora (dá para desfazer).',()=>applyState(data,'Backup do texto restaurado.'))}catch(x){bkStatus('O texto da caixa não é um backup válido.')}};
 (async()=>{
  try{if(window.claude&&claude.use){DBN=await claude.use('db');const u=await claude.use('user');UID=u?await u.id():null}}catch(e){}
- if(!DBN||!UID){DBN=null;setChip(false,'💾 Só neste aparelho');bkStatus('O backup na nuvem não está disponível aqui. Seus dados ficam salvos neste aparelho. Baixe o arquivo de backup de vez em quando.');loadHist();return}
+ if(!DBN||!UID){DBN=null;setChip(false,'💾 Só neste aparelho');bkStatus('Seus dados ficam salvos neste aparelho. Baixe o arquivo de backup de vez em quando para não perder nada.');loadHist();return}
  loadHist();
  try{DBN.collection('data/users/'+UID).doc('latest').onSnapshot(onCloud,()=>{setChip(false,'💾 Só neste aparelho');bkStatus('A conexão com o backup na nuvem foi interrompida. Recarregue a página.')})}catch(e){setChip(false,'💾 Só neste aparelho')}
 })();
 applyLook();render();
+</script>
+<script>
+(function(){
+ var tabs=['home','cal','gastos','invest','graf','bk'];
+ function hint(){try{var p=S.ym.split('-'),d=S.day,t=(d<10?'0':'')+d+'/'+p[1]+'/'+p[0];document.querySelectorAll('.dh').forEach(function(e){e.textContent=t})}catch(e){}}
+ function show(t){
+  if(tabs.indexOf(t)<0)t='home';
+  tabs.forEach(function(x){
+   document.getElementById('tp-'+x).classList.toggle('on',x===t);
+   var b=document.querySelector('.tabbar [data-t="'+x+'"]');
+   b.classList.toggle('on',x===t);
+   if(x===t)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
+  });
+  hint();window.scrollTo(0,0);
+ }
+ document.querySelectorAll('.tabbar button').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.t)})});
+ document.addEventListener('click',function(){setTimeout(hint,0)});
+ show('home');
+})();
 </script>
 </body>
 </html>
