@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -638,7 +639,7 @@ function list(el,arr,type,key){
  el.innerHTML=a.length?'':'<li class="empty">Nada por aqui ainda.</li>';
  a.forEach(i=>{
   const li=document.createElement('li');
-  li.innerHTML='<span class="sw" style="background:'+(i.cat?color(i.cat):'var(--ac)')+'"></span><span class="n"><span></span><small>'+(i.cat?i.cat+' · ':'')+p2(i.day||1)+'/'+mm+'</small></span><b>'+money(i.val)+'</b><button class="x" title="Remover" aria-label="Remover">'+IC('x')+'</button>';
+  li.className=(key==='items'&&i.paid)?'paid':'';li.innerHTML=(key==='items'?'<input type="checkbox" class="pd" title="Já paguei" aria-label="Já paguei" '+(i.paid?'checked':'')+'>':'')+'<span class="sw" style="background:'+(i.cat?color(i.cat):'var(--ac)')+'"></span><span class="n"><span></span><small>'+(i.cat?i.cat+' · ':'')+p2(i.day||1)+'/'+mm+'</small></span><b>'+money(i.val)+'</b><button class="x" title="Remover" aria-label="Remover">'+IC('x')+'</button>';
   li.querySelector('.n span').textContent=noEmo(i.name);
   li.querySelector('.x').onclick=()=>{M()[key]=M()[key].filter(z=>z.id!==i.id);save();render()};
   el.appendChild(li);
@@ -968,19 +969,31 @@ const st=document.createElement('style');st.textContent=`
 .yc small+em{grid-column:2}
 .ex{margin:-4px 0 12px}
 .ghbox a{color:var(--ac)}
+.pd{width:22px;height:22px;accent-color:var(--ok);flex:none;cursor:pointer}
+li.paid .n span{text-decoration:line-through;opacity:.55}
 `;document.head.appendChild(st);
 
 /* ---------- humor: feliz / sério / chorando ---------- */
+let engaged=false,lastMood='neu',burstUntil=0;
+const confettiRaw=confetti;
+confetti=function(on){if(on&&(pigBurst||Date.now()<burstUntil))confettiRaw(true);else confettiRaw(false)};
 state=function(d){const c=calc(d);
  if(!(d.income>0||c.t>0||c.inv>0))return'empty';
- if(c.t>d.income)return'sad';          /* não conseguiu pagar as contas */
- if(c.inv>0&&c.sd>=0)return'happy';    /* pagou tudo e investiu */
- return'ser'};                          /* sem investimento */
-mood=function(d){const s=state(d),c=calc(d),n=S.name?S.name+', ':'';
- if(s==='empty')return['neu','','Oi! Eu sou '+CHARS[S.char].n+'. Lance sua renda e seus gastos que eu te acompanho!'];
- if(s==='sad')return['sad','{trending-down} Contas no vermelho',n+'estou chorando… os gastos passaram '+money(c.t-d.income)+' da sua renda.'];
- if(s==='happy')return['happy','{circle-check} Contas pagas e investindo!',n+'você pagou todas as contas e ainda investiu '+money(c.inv)+'. Sobrou '+money(c.sd)+'!'];
- return['ser','{alert} Sem investimento',n+(c.sd<0?'você investiu mais do que sobrou depois das contas. Revise os valores.':'as contas estão pagas, mas ainda não há investimento neste mês…')]};
+ if(c.t>d.income)return'sad';                         /* gastos maiores que a renda */
+ if(c.inv<=0)return'ser';                             /* nenhum investimento */
+ if(d.items.every(i=>i.paid)&&c.sd>=0)return'happy';  /* investiu e todas as contas estão pagas */
+ return'neu'};
+mood=function(d){const s=state(d),c=calc(d),n=S.name?S.name+', ':'',falta=d.items.filter(i=>!i.paid).reduce((a,i)=>a+i.val,0);
+ if(!engaged)return['neu','','Oi! Eu sou '+CHARS[S.char].n+'. '+(s==='empty'?'Lance sua renda e seus gastos que eu te acompanho!':'Marque as contas que já pagou e lance seus investimentos que eu reajo!')];
+ let r;
+ if(s==='empty')r=['neu','','Oi! Eu sou '+CHARS[S.char].n+'. Lance sua renda e seus gastos que eu te acompanho!'];
+ else if(s==='sad')r=['sad','{trending-down} Contas no vermelho',n+'estou chorando… os gastos passaram '+money(c.t-d.income)+' da sua renda.'];
+ else if(s==='happy')r=['happy','{circle-check} Contas pagas e investindo!',n+'você pagou todas as contas e investiu '+money(c.inv)+'. Sobrou '+money(c.sd)+'!'];
+ else if(s==='ser')r=['ser','{alert} Sem investimento',n+'ainda não há investimento neste mês…'];
+ else r=['neu','{alert} '+(c.sd<0?'Investiu além da conta':'Falta pagar contas'),c.sd<0?n+'você investiu mais do que sobrou depois das contas. Revise os valores.':n+'você já investiu! Falta pagar '+money(falta)+' em contas para eu comemorar.'];
+ if(r[0]==='happy'&&lastMood!=='happy'){burstUntil=Date.now()+5000;setTimeout(()=>{if(!pigBurst)confettiRaw(false)},5200)}
+ lastMood=r[0];return r};
+['click','input','change'].forEach(ev=>document.addEventListener(ev,e=>{const t=e.target;if(t&&t.closest&&t.closest('#fa,#va,#ia,#gadd,.pd,.x,.sr,#inc,#meta'))engaged=true},true));
 const _face=face;
 face=function(P){const h=_face(P),{ex=28,my=20,mk=K}=P;
  const ser=[-1,1].map(s=>`<ellipse cx="${s*ex}" cy="0" rx="5.2" ry="6.6" fill="${mk}"/><circle cx="${s*ex-1.6}" cy="-2.4" r="1.9" fill="#fff"/><path d="M${s*ex-8} -11 H${s*ex+8}" stroke="${mk}" stroke-width="3.4" stroke-linecap="round"/>`).join('')
@@ -1029,6 +1042,7 @@ list=function(el,arr,type,key){
    +(i.grp?'<button class="x sr" title="Remover este e os próximos meses" aria-label="Remover este e os próximos meses">'+IC('trash')+'</button>':'')
    +'<button class="x one" title="Remover só este mês" aria-label="Remover">'+IC('x')+'</button>';
   li.querySelector('.n span').textContent=noEmo(i.name);
+  const pd=li.querySelector('.pd');if(pd)pd.onchange=()=>{i.paid=pd.checked;save();render()};
   li.querySelector('.one').onclick=()=>{if(i.rec){const r=(S.rec||[]).find(z=>z.id===i.grp);if(r)(r.skip=r.skip||[]).push(S.ym)}M()[key]=M()[key].filter(z=>z.id!==i.id);save();render()};
   const sr=li.querySelector('.sr');if(sr)sr.onclick=()=>{if(!confirm('Remover "'+noEmo(i.name)+'" deste mês e de todos os próximos?'))return;delSeries(i);save();render()};
   el.appendChild(li)})};
@@ -1052,8 +1066,10 @@ function drawYear(){const g=$('ygrid');$('yt').textContent='Visão de '+YV;g.inn
   b.onclick=()=>{S.ym=ym;S.day=Math.min(S.day,dim(ym));save();render();document.querySelector('.tabbar [data-t="home"]').click()};
   g.appendChild(b)}
  setT($('ytot'),'{pie-chart} Ano: renda '+money(TR)+' · gastos '+money(TG)+' · investido '+money(TI))}
+document.querySelector('.stats').insertAdjacentHTML('beforeend','<div class="stat"><small>Já paguei</small><b id="tpg" class="pos"></b></div><div class="stat"><small>Falta pagar</small><b id="tfp"></b></div>');
+function drawPaid(){const it=M().items,pg=it.filter(i=>i.paid).reduce((a,i)=>a+i.val,0),tt=it.reduce((a,i)=>a+i.val,0);$('tpg').textContent=money(pg);$('tfp').textContent=money(tt-pg)}
 const _r=render;
-render=function(){syncRec();_r();drawYear()};
+render=function(){syncRec();_r();drawPaid();drawYear()};
 
 /* ---------- backup automático no GitHub (Gist) ---------- */
 const GH={t:null,id:null},FN='controle-financeiro.json';
