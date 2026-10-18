@@ -259,7 +259,7 @@ li .x{background:none;border:0;color:var(--mut);cursor:pointer;font-size:18px}li
 .medal,.gs,.fc,.cape{opacity:0;transition:opacity .8s}
 #pigsvg.gold .medal,#pigsvg.gold .gs,#pigsvg.gold .fc{opacity:1}
 #pigsvg.gold .cape{opacity:1;animation:cp 1.6s ease-in-out infinite}
-.gs text{animation:twk 1.3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.gs path{animation:twk 1.3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
 @keyframes twk{50%{transform:scale(1.35) rotate(14deg);opacity:.65}}
 .fc circle{animation:cfall 2.8s linear infinite;opacity:0}
 @keyframes cfall{0%{transform:translateY(-16px);opacity:0}12%{opacity:1}85%{opacity:1}100%{transform:translateY(250px);opacity:0}}
@@ -287,17 +287,35 @@ li .x{background:none;border:0;color:var(--mut);cursor:pointer;font-size:18px}li
 .dayhint{display:block;margin:0 0 12px;color:var(--mut);font-size:.9rem}
 .dayhint b{color:var(--tx)}
 @media(min-width:900px){.tabbar button{flex-direction:row;justify-content:center;gap:8px;font-size:.85rem}.tabbar button .ti{font-size:1.15rem}}
+
+/* ---------- ícones ---------- */
+.ic{width:1.15em;height:1.15em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.22em;flex:none}
+.ic.fill{fill:currentColor;stroke:none}
+h1 .ic{color:var(--ac);width:1.1em;height:1.1em;margin-right:4px;vertical-align:-.16em}
+h2 .ic{color:var(--ac);margin-right:4px}
+.btn .ic,.cchip .ic,.badge .ic,.chip .ic,.top .ic,.dayhint .ic,.gc b .ic,.bk .bst .ic{margin-right:5px}
+.calh .btn .ic,li .x .ic{margin:0}
+li .x .ic{width:16px;height:16px}
+.mt span .ic{width:18px;height:18px;margin:0}
+.mt span.pos{color:var(--ok)}.mt span.neg{color:var(--bad)}
+.tabbar button .ti .ic{width:1.15em;height:1.15em;margin:0;stroke-width:1.9}
+.chwrap .spk svg.ic{width:22px;height:22px;max-width:none}
+.pigstage .chip svg.ic{width:1em;height:1em;max-width:none;margin-right:5px;vertical-align:-.15em}
+.gc b .ic{color:var(--ac)}
+.gpre .btn .ic{color:var(--ac)}
+.top .ic{color:var(--ac)}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-wallet" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></symbol><symbol id="i-hdd" viewBox="0 0 24 24"><line x1="22" x2="2" y1="12" y2="12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" x2="6.01" y1="16" y2="16"/><line x1="10" x2="10.01" y1="16" y2="16"/></symbol><symbol id="i-contrast" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 18a6 6 0 0 0 0-12v12z"/></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol><symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></symbol><symbol id="i-shopping-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol><symbol id="i-trending-up" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></symbol><symbol id="i-trending-down" viewBox="0 0 24 24"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/></symbol><symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol><symbol id="i-coins" viewBox="0 0 24 24"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></symbol><symbol id="i-pie-chart" viewBox="0 0 24 24"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></symbol><symbol id="i-database" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></symbol><symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></symbol><symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></symbol><symbol id="i-folder-open" viewBox="0 0 24 24"><path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"/></symbol><symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11"/></symbol><symbol id="i-home" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol><symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol><symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol><symbol id="i-circle-dot" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/></symbol><symbol id="i-car" viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></symbol><symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></symbol><symbol id="i-cap" viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol><symbol id="i-gem" viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></symbol><symbol id="i-piggy" viewBox="0 0 24 24"><path d="M11 17h3v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-3a3.16 3.16 0 0 0 2-2h1a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1h-1a5 5 0 0 0-2-4V3a4 4 0 0 0-3.2 1.6l-.3.4H11a6 6 0 0 0-6 6v1a5 5 0 0 0 2 4v3a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1z"/><path d="M16 10h.01"/><path d="M2 8v1a2 2 0 0 0 2 2h1"/></symbol><symbol id="i-crown" viewBox="0 0 24 24"><path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z"/><path d="M5 21h14"/></symbol><symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></symbol><symbol id="i-sprout" viewBox="0 0 24 24"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></symbol><symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 1 Q13.5 10.5 23 12 Q13.5 13.5 12 23 Q10.5 13.5 1 12 Q10.5 10.5 12 1Z"/></symbol></defs></svg>
 <canvas id="cv" style="position:fixed;inset:0;pointer-events:none;z-index:50"></canvas>
 <div class="wrap">
 <header>
- <h1>💸 Meu <span>Controle Financeiro</span></h1>
+ <h1><svg class="ic" aria-hidden="true"><use href="#i-wallet"/></svg> Meu <span>Controle Financeiro</span></h1>
  <div class="tools">
-  <span class="cchip off" id="cchip" style="display:none !important">💾 Só neste aparelho</span>
+  <span class="cchip off" id="cchip" style="display:none !important"><svg class="ic" aria-hidden="true"><use href="#i-hdd"/></svg> Só neste aparelho</span>
   <div class="dots" id="dots" title="Cor do site"></div>
-  <button class="btn" id="mode">🌓 Claro/Escuro</button>
+  <button class="btn" id="mode"><svg class="ic" aria-hidden="true"><use href="#i-contrast"/></svg> Claro/Escuro</button>
  </div>
 </header>
 <div class="ban" id="bkban" hidden style="display:none !important"><span id="bkbt"></span><button class="btn pri" id="bkuse">Usar a da nuvem</button><button class="btn" id="bkign">Manter a deste aparelho</button></div>
@@ -334,7 +352,7 @@ li .x{background:none;border:0;color:var(--mut);cursor:pointer;font-size:18px}li
 
 <div class="tp" id="tp-cal">
 <section class="card" style="margin-bottom:16px">
- <div class="calh"><button class="btn" id="pm" aria-label="Mês anterior">◀</button><h2 id="mt"></h2><button class="btn" id="td">Hoje</button><button class="btn" id="nx" aria-label="Próximo mês">▶</button></div>
+ <div class="calh"><button class="btn" id="pm" aria-label="Mês anterior"><svg class="ic" aria-hidden="true"><use href="#i-chevron-left"/></svg></button><h2 id="mt"></h2><button class="btn" id="td">Hoje</button><button class="btn" id="nx" aria-label="Próximo mês"><svg class="ic" aria-hidden="true"><use href="#i-chevron-right"/></svg></button></div>
  <div class="year" id="year"></div>
  <div class="cgrid" id="cg"></div>
  <div class="dayp"><b id="dh"></b><ul id="dl"></ul></div>
@@ -342,15 +360,15 @@ li .x{background:none;border:0;color:var(--mut);cursor:pointer;font-size:18px}li
 </div>
 
 <div class="tp" id="tp-gastos">
-<small class="dayhint">📅 Lançando no dia <b class="dh"></b> (para mudar o dia, escolha no Calendário)</small>
+<small class="dayhint"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg> Lançando no dia <b class="dh"></b> (para mudar o dia, escolha no Calendário)</small>
 <section class="grid">
  <div class="card">
-  <h2>📌 Gastos fixos</h2>
+  <h2><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> Gastos fixos</h2>
   <div class="row"><input id="fn" placeholder="Ex.: Aluguel"><input id="fv" type="number" min="0" step="0.01" placeholder="Valor"><select id="fc"></select><button class="btn pri" id="fa">Adicionar</button></div>
   <ul id="lf"></ul>
  </div>
  <div class="card">
-  <h2>🛍️ Gastos variáveis</h2>
+  <h2><svg class="ic" aria-hidden="true"><use href="#i-shopping-bag"/></svg> Gastos variáveis</h2>
   <div class="row"><input id="vn" placeholder="Ex.: Mercado"><input id="vv" type="number" min="0" step="0.01" placeholder="Valor"><select id="vc"></select><button class="btn pri" id="va">Adicionar</button></div>
   <ul id="lv"></ul>
  </div>
@@ -358,15 +376,15 @@ li .x{background:none;border:0;color:var(--mut);cursor:pointer;font-size:18px}li
 </div>
 
 <div class="tp" id="tp-invest">
-<small class="dayhint">📅 Lançando no dia <b class="dh"></b> (para mudar o dia, escolha no Calendário)</small>
+<small class="dayhint"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg> Lançando no dia <b class="dh"></b> (para mudar o dia, escolha no Calendário)</small>
 <section class="grid">
  <div class="card full">
-  <h2>📈 Investimentos do mês</h2>
+  <h2><svg class="ic" aria-hidden="true"><use href="#i-trending-up"/></svg> Investimentos do mês</h2>
   <div class="row"><input id="in" placeholder="Ex.: Tesouro Direto"><input id="iv" type="number" min="0" step="0.01" placeholder="Valor"><button class="btn pri" id="ia">Adicionar</button></div>
   <ul id="li"></ul>
  </div>
  <div class="card full">
-  <h2>🎯 Minhas metas</h2>
+  <h2><svg class="ic" aria-hidden="true"><use href="#i-target"/></svg> Minhas metas</h2>
   <div class="gcards" id="gcards"></div>
   <div class="gpre" id="gpre"></div>
   <div class="pigrow">
@@ -379,9 +397,9 @@ li .x{background:none;border:0;color:var(--mut);cursor:pointer;font-size:18px}li
     <div class="row"><input id="gn" placeholder="Nome da meta (ex.: Casa)"><input id="gt" type="number" min="0" step="0.01" placeholder="Meta (R$)"><input id="gb" type="number" min="0" step="0.01" placeholder="Já guardei (R$)"></div>
     <div class="bar big"><i id="gbar" style="width:0"></i></div>
     <p id="gtxt" class="gtxt"></p>
-    <div class="row"><input id="gv" type="number" min="0" step="0.01" placeholder="Quanto vai guardar agora? (R$)"><button class="btn pri" id="gadd">🪙 Guardar no porquinho</button></div>
+    <div class="row"><input id="gv" type="number" min="0" step="0.01" placeholder="Quanto vai guardar agora? (R$)"><button class="btn pri" id="gadd"><svg class="ic" aria-hidden="true"><use href="#i-coins"/></svg> Guardar no porquinho</button></div>
     <small style="color:var(--mut)">O valor entra no dia selecionado do calendário e conta como investimento do mês.</small>
-    <div class="row" style="margin-top:12px"><button class="btn" id="gdel" type="button">🗑️ Excluir esta meta</button></div>
+    <div class="row" style="margin-top:12px"><button class="btn" id="gdel" type="button"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg> Excluir esta meta</button></div>
    </div>
   </div>
  </div>
@@ -391,7 +409,7 @@ li .x{background:none;border:0;color:var(--mut);cursor:pointer;font-size:18px}li
 <div class="tp" id="tp-graf">
 <section class="grid">
  <div class="card full">
-  <h2>📊 Com o que você mais gasta</h2>
+  <h2><svg class="ic" aria-hidden="true"><use href="#i-pie-chart"/></svg> Com o que você mais gasta</h2>
   <div class="chart">
    <div class="donut"><svg id="svg" viewBox="0 0 42 42" width="220" height="220"></svg><div class="c"><small>Total</small><b id="ct">R$ 0</b></div></div>
    <div class="legend" id="lg"></div>
@@ -404,13 +422,13 @@ li .x{background:none;border:0;color:var(--mut);cursor:pointer;font-size:18px}li
 <div class="tp" id="tp-bk">
 <section class="grid">
  <div class="card full bk">
-  <h2>💾 Meus dados e backup</h2>
+  <h2><svg class="ic" aria-hidden="true"><use href="#i-database"/></svg> Meus dados e backup</h2>
   <p class="bst" id="bkst">Baixe o arquivo de backup de vez em quando para não perder nada.</p>
   <div class="acts">
-   <button class="btn pri" id="bkNow" style="display:none">☁️ Salvar cópia agora</button>
-   <button class="btn" id="bkDl">⬇️ Baixar arquivo</button>
-   <label class="btn" for="bkUp">📂 Restaurar de arquivo</label><input id="bkUp" type="file" accept=".json,application/json" hidden>
-   <button class="btn" id="bkUndo" hidden>↩️ Desfazer restauração</button>
+   <button class="btn pri" id="bkNow" style="display:none"><svg class="ic" aria-hidden="true"><use href="#i-cloud"/></svg> Salvar cópia agora</button>
+   <button class="btn" id="bkDl"><svg class="ic" aria-hidden="true"><use href="#i-download"/></svg> Baixar arquivo</button>
+   <label class="btn" for="bkUp"><svg class="ic" aria-hidden="true"><use href="#i-folder-open"/></svg> Restaurar de arquivo</label><input id="bkUp" type="file" accept=".json,application/json" hidden>
+   <button class="btn" id="bkUndo" hidden><svg class="ic" aria-hidden="true"><use href="#i-undo"/></svg> Desfazer restauração</button>
   </div>
   <div class="ban" id="bkcf" hidden><span id="bkcft"></span><button class="btn pri" id="bkyes">Sim, restaurar</button><button class="btn" id="bkno">Cancelar</button></div>
   <h3 style="display:none">Cópias dos últimos dias</h3>
@@ -425,12 +443,12 @@ li .x{background:none;border:0;color:var(--mut);cursor:pointer;font-size:18px}li
 </div>
 </div>
 <nav class="tabbar" aria-label="Seções">
- <button type="button" data-t="home"><span class="ti">🏠</span>Início</button>
- <button type="button" data-t="cal"><span class="ti">📅</span>Calendário</button>
- <button type="button" data-t="gastos"><span class="ti">🛍️</span>Gastos</button>
- <button type="button" data-t="invest"><span class="ti">📈</span>Invest.</button>
- <button type="button" data-t="graf"><span class="ti">📊</span>Gráficos</button>
- <button type="button" data-t="bk"><span class="ti">💾</span>Backup</button>
+ <button type="button" data-t="home"><span class="ti"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg></span>Início</button>
+ <button type="button" data-t="cal"><span class="ti"><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg></span>Calendário</button>
+ <button type="button" data-t="gastos"><span class="ti"><svg class="ic" aria-hidden="true"><use href="#i-shopping-bag"/></svg></span>Gastos</button>
+ <button type="button" data-t="invest"><span class="ti"><svg class="ic" aria-hidden="true"><use href="#i-trending-up"/></svg></span>Invest.</button>
+ <button type="button" data-t="graf"><span class="ti"><svg class="ic" aria-hidden="true"><use href="#i-pie-chart"/></svg></span>Gráficos</button>
+ <button type="button" data-t="bk"><span class="ti"><svg class="ic" aria-hidden="true"><use href="#i-database"/></svg></span>Backup</button>
 </nav>
 
 <script>
@@ -438,6 +456,9 @@ const CATS=[['Moradia','#7c5cff'],['Alimentação','#ff6b3d'],['Transporte','#0a
 const THEMES=[['violeta','#7c5cff'],['oceano','#0a9bd8'],['esmeralda','#14a46b'],['sunset','#ff6b3d'],['rosa','#e8449a'],['ouro','#c99a12']];
 const MN=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
 const $=id=>document.getElementById(id);
+const IC=(n,c)=>'<svg class="ic'+(c?' '+c:'')+'" aria-hidden="true"><use href="#i-'+n+'"/></svg>';
+const setT=(el,t)=>{t=String(t);const m=/^\{([\w-]+)\}\s*/.exec(t);el.textContent='';if(m){el.insertAdjacentHTML('beforeend',IC(m[1]));t=t.slice(m[0].length)}el.append(t)};
+const noEmo=t=>String(t).replace(/[\p{Extended_Pictographic}\u200D]+/gu,'').trim();
 const R=document.documentElement;
 const money=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
 const kf=v=>v>=1000?(v/1000).toFixed(1).replace('.',',')+'k':Math.round(v);
@@ -578,7 +599,7 @@ THEMES.forEach(([t,c])=>{const b=document.createElement('button');b.className='d
 CHARS.forEach((c,i)=>{const b=document.createElement('button');b.title=c.n;b.innerHTML=charSVG(c);b.onclick=()=>{S.char=i;applyLook();save();render()};$('chars').appendChild(b)});
 ['fc','vc'].forEach(id=>CATS.forEach(([n])=>{const o=document.createElement('option');o.value=o.textContent=n;$(id).appendChild(o)}));
 $('rain').innerHTML=Array.from({length:18},()=>'<i style="left:'+Math.random()*100+'%;animation-delay:'+(-Math.random())+'s;animation-duration:'+(.7+Math.random()*.6)+'s"></i>').join('');
-$('spk').innerHTML=[[2,22],[88,16],[-2,55],[92,58],[10,86],[84,88],[45,2]].map(([x,y],i)=>'<span class="sp" style="left:'+x+'%;top:'+y+'%;animation-delay:'+i*.15+'s">'+(i%2?'🎉':'✨')+'</span>').join('');
+$('spk').innerHTML=[[2,22],[88,16],[-2,55],[92,58],[10,86],[84,88],[45,2]].map(([x,y],i)=>'<span class="sp" style="left:'+x+'%;top:'+y+'%;animation-delay:'+i*.15+'s;color:'+(i%2?'#ff8fc7':'#ffd84d')+'">'+IC('spark','fill')+'</span>').join('');
 $('mode').onclick=()=>{const dark=getComputedStyle(R).getPropertyValue('--bg').trim()==='#0f0d17';S.mode=dark?'light':'dark';applyLook();save()};
 
 /* ---------- confete ---------- */
@@ -617,20 +638,22 @@ function list(el,arr,type,key){
  el.innerHTML=a.length?'':'<li class="empty">Nada por aqui ainda.</li>';
  a.forEach(i=>{
   const li=document.createElement('li');
-  li.innerHTML='<span class="sw" style="background:'+(i.cat?color(i.cat):'var(--ac)')+'"></span><span class="n"><span></span><small>'+(i.cat?i.cat+' · ':'')+p2(i.day||1)+'/'+mm+'</small></span><b>'+money(i.val)+'</b><button class="x" title="Remover">✕</button>';
-  li.querySelector('.n span').textContent=i.name;
+  li.innerHTML='<span class="sw" style="background:'+(i.cat?color(i.cat):'var(--ac)')+'"></span><span class="n"><span></span><small>'+(i.cat?i.cat+' · ':'')+p2(i.day||1)+'/'+mm+'</small></span><b>'+money(i.val)+'</b><button class="x" title="Remover" aria-label="Remover">'+IC('x')+'</button>';
+  li.querySelector('.n span').textContent=noEmo(i.name);
   li.querySelector('.x').onclick=()=>{M()[key]=M()[key].filter(z=>z.id!==i.id);save();render()};
   el.appendChild(li);
  });
 }
 
 /* ---------- metas + porquinho ---------- */
-const GPRE=[['🏠','Casa'],['🚗','Carro'],['✈️','Viagem'],['🛡️','Reserva de emergência'],['🎓','Estudos'],['💍','Casamento'],['🎯','Outra meta']];
+const GPRE=[['home','Casa'],['car','Carro'],['plane','Viagem'],['shield','Reserva de emergência'],['cap','Estudos'],['gem','Casamento'],['target','Outra meta']];
+const GLEG={'\u{1F3E0}':'home','\u{1F697}':'car','\u2708':'plane','\u{1F6E1}':'shield','\u{1F393}':'cap','\u{1F48D}':'gem','\u{1F3AF}':'target','\u{1F437}':'piggy'};
+const gicon=x=>{let v=String((x&&x.icon)||'').replace(/\uFE0F/g,'');if(GLEG[v])v=GLEG[v];if(!/^[a-z-]+$/.test(v))v='piggy';return document.getElementById('i-'+v)?v:'target'};
 const gesc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function ensureGoals(){
  if(!Array.isArray(S.goals)||!S.goals.length){
   const g=S.goal||{};
-  S.goals=[{id:'g'+Date.now().toString(36),name:g.name||'',target:+g.target||0,base:+g.base||0,icon:'🐷'}];
+  S.goals=[{id:'g'+Date.now().toString(36),name:g.name||'',target:+g.target||0,base:+g.base||0,icon:'piggy'}];
  }
  if(!S.goals.some(g=>g.id===S.gsel))S.gsel=S.goals[0].id;
  const f=S.goals[0].id;
@@ -645,7 +668,7 @@ $('gb').oninput=e=>{G().base=parseFloat(e.target.value)||0;save();renderPig()};
 $('gadd').onclick=()=>{
  const v=parseFloat($('gv').value);if(!(v>0))return;
  const g=G();
- M().inv.push({id:Date.now()+Math.random(),name:(g.icon||'🐷')+' '+(g.name||'Meta'),val:v,day:S.day,pig:true,gid:g.id});
+ M().inv.push({id:Date.now()+Math.random(),name:(g.name||'Meta'),val:v,day:S.day,pig:true,gid:g.id});
  $('gv').value='';save();render();
  const sv=$('pigsvg');sv.classList.add('dep');setTimeout(()=>sv.classList.remove('dep'),1100);
 };
@@ -655,7 +678,7 @@ function addGoal(icon,name){
  S.goals.push(g);S.gsel=g.id;wasDone=null;$('gpre').classList.remove('on');save();renderPig();
  setTimeout(()=>{try{$(name==='Outra meta'?'gn':'gt').focus()}catch(e){}},60);
 }
-$('gpre').innerHTML='<small>Escolha o tipo da meta:</small>'+GPRE.map((p,k)=>'<button type="button" class="btn" data-k="'+k+'">'+p[0]+' '+p[1]+'</button>').join('');
+$('gpre').innerHTML='<small>Escolha o tipo da meta:</small>'+GPRE.map((p,k)=>'<button type="button" class="btn" data-k="'+k+'">'+IC(p[0])+' '+p[1]+'</button>').join('');
 $('gpre').onclick=e=>{const b=e.target.closest('button');if(b){const p=GPRE[+b.dataset.k];addGoal(p[0],p[1])}};
 $('gcards').onclick=e=>{
  const b=e.target.closest('button');if(!b)return;
@@ -666,7 +689,7 @@ $('gdel').onclick=()=>{
  const g=G(),n=S.goals.length;
  if(!confirm(n>1?'Excluir a meta "'+(g.name||'sem nome')+'"? O que você já guardou continua contando como investimento do mês.':'Limpar esta meta? O que você já guardou continua contando como investimento do mês.'))return;
  for(const k in S.months)(S.months[k].inv||[]).forEach(i=>{if(i.gid===g.id){delete i.pig;delete i.gid}});
- if(n>1){S.goals=S.goals.filter(x=>x.id!==g.id);S.gsel=S.goals[0].id}else{g.name='';g.target=0;g.base=0;g.icon='🐷'}
+ if(n>1){S.goals=S.goals.filter(x=>x.id!==g.id);S.gsel=S.goals[0].id}else{g.name='';g.target=0;g.base=0;g.icon='piggy'}
  wasDone=null;save();render();
 };
 const PIGART=()=>`
@@ -676,7 +699,7 @@ const PIGART=()=>`
  <path d="M134 206 Q166 210 161 187 Q158 176 148 185" fill="none" stroke="${K}" stroke-width="10" stroke-linecap="round"/><path d="M134 206 Q166 210 161 187 Q158 176 148 185" fill="none" stroke="var(--pk2)" stroke-width="5" stroke-linecap="round"/>
  <ellipse cx="80" cy="231" rx="13" ry="7" fill="var(--pk2)" ${O}/><ellipse cx="120" cy="231" rx="13" ry="7" fill="var(--pk2)" ${O}/>
  <ellipse cx="100" cy="200" rx="36" ry="32" fill="var(--pk)" ${O}/><ellipse cx="100" cy="207" rx="21" ry="19" fill="var(--pk3)"/>
- <g class="medal"><circle cx="100" cy="208" r="11" fill="#ffd447" stroke="${K}" stroke-width="2.5"/><text x="100" y="214" font-size="15" text-anchor="middle" fill="#fff6c9" stroke="${K}" stroke-width=".6">★</text></g>
+ <g class="medal"><circle cx="100" cy="208" r="11" fill="#ffd447" stroke="${K}" stroke-width="2.5"/><polygon points="100,200.5 101.88,205.41 107.13,205.68 103.04,208.99 104.41,214.07 100,211.2 95.59,214.07 96.96,208.99 92.87,205.68 98.12,205.41" fill="#fff6c9" stroke="${K}" stroke-width="1" stroke-linejoin="round"/></g>
  ${arms('var(--pk)','var(--pk)',66,180)}
  <g class="hd">
   <path d="M54 80 Q36 36 82 54Z" fill="var(--pk)" ${O}/><path d="M62 72 Q52 52 76 60Z" fill="var(--pk2)"/>
@@ -692,7 +715,7 @@ const PIGART=()=>`
 </g>
 <circle class="coin" cx="100" cy="22" r="9" fill="#ffd447" stroke="${K}" stroke-width="3"/>
 </g>
-<g class="gs"><text x="10" y="64" font-size="20">✨</text><text x="170" y="52" font-size="22">✨</text><text x="4" y="150" font-size="16">⭐</text><text x="178" y="146" font-size="16">⭐</text><text x="146" y="14" font-size="16">✨</text></g>`;
+<g class="gs">${[[20,58,1],[181,45,1.15],[12,145,.8],[186,141,.8],[154,9,.8]].map(([x,y,k],i)=>`<g transform="translate(${x} ${y}) scale(${k})"><path d="M0 -10 Q1.6 -1.6 10 0 Q1.6 1.6 0 10 Q-1.6 1.6 -10 0 Q-1.6 -1.6 0 -10Z" fill="${i%2?'#fff6c9':'#ffd447'}" stroke="#ffb81f" stroke-width="1.2" stroke-linejoin="round" style="animation-delay:-${i*.25}s"/></g>`).join('')}</g>`;
 $('pigsvg').innerHTML=PIGART();
 const PIGSCENE=()=>{
  const sky='<defs><linearGradient id="skp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--sk1)"/><stop offset="1" style="stop-color:var(--sk2)"/></linearGradient></defs><rect width="400" height="420" fill="url(#skp)"/>';
@@ -710,12 +733,12 @@ function renderPig(){
  $('pigs').style.transform='scale('+(.55+.45*Math.min(p,1))+')';
  $('pigsvg').classList.toggle('gold',done);$('pigstage').className='pigstage '+(done?'m-happy gold':'m-neu');
  $('gbar').style.width=Math.min(p*100,100)+'%';
- $('gst').textContent=done?'👑 Meta atingida!':p>=.6?'🐖 Quase lá':p>=.25?'🐷 Crescendo':'🐽 Filhote';
+ setT($('gst'),done?'{crown} Meta atingida!':p>=.6?'{flag} Quase lá':p>=.25?'{trending-up} Crescendo':'{sprout} Filhote');
  $('gtxt').textContent=g.target<=0?'Diga o nome da meta e quanto você quer juntar. O porquinho começa filhote e cresce a cada depósito.':
-  done?'Meta atingida! '+money(sv)+' guardados'+(g.name?' para "'+g.name+'"':'')+'. O porquinho ganhou uma coroa e virou um super-herói! 👑':
+  done?'Meta atingida! '+money(sv)+' guardados'+(g.name?' para "'+g.name+'"':'')+'. O porquinho ganhou uma coroa e virou um super-herói!':
   money(sv)+' de '+money(g.target)+' ('+Math.round(p*100)+'%) · faltam '+money(g.target-sv);
  $('gcards').innerHTML=S.goals.map(x=>{const s2=goalSaved(x),q=x.target>0?Math.min(s2/x.target,1):0;
-  return '<button type="button" class="gc'+(x.id===g.id?' on':'')+'" data-id="'+gesc(x.id)+'"><b>'+gesc(x.icon||'🎯')+' '+gesc(x.name||'Nova meta')+'</b><div class="bar"><i style="width:'+(q*100)+'%"></i></div><small>'+(x.target>0?money(s2)+' de '+money(x.target):money(s2)+' guardados')+'</small></button>'}).join('')
+  return '<button type="button" class="gc'+(x.id===g.id?' on':'')+'" data-id="'+gesc(x.id)+'"><b>'+IC(gicon(x))+' '+gesc(x.name||'Nova meta')+'</b><div class="bar"><i style="width:'+(q*100)+'%"></i></div><small>'+(x.target>0?money(s2)+' de '+money(x.target):money(s2)+' guardados')+'</small></button>'}).join('')
   +(S.goals.length<12?'<button type="button" class="gc add" id="gnew">＋ Nova meta</button>':'');
  if(wasDone!==null&&done&&!wasDone){pigBurst=true;setTimeout(()=>{pigBurst=false;confetti(cur==='happy')},7000)}
  wasDone=done;
@@ -730,10 +753,10 @@ function drawCal(d){
  $('mt').textContent=MN[m-1]+' de '+y;
  $('year').innerHTML='';
  for(let k=1;k<=12;k++){
-  const key=y+'-'+p2(k),dd=S.months[key];let ic='·';
-  if(dd){const s=state(dd);ic=s==='happy'?'🎉':s==='sad'?(calc(dd).sd<0?'😭':'😢'):s==='neu'?'🙂':'·'}
+  const key=y+'-'+p2(k),dd=S.months[key];let ic='·',cl='';
+  if(dd){const s=state(dd);if(s==='happy'){ic=IC('circle-check');cl='pos'}else if(s==='sad'){ic=IC('trending-down');cl='neg'}else if(s==='neu')ic=IC('circle-dot')}
   const b=document.createElement('button');b.className='mt'+(key===S.ym?' on':'');
-  b.innerHTML='<small>'+MN[k-1].slice(0,3)+'</small><span>'+ic+'</span>';b.title=MN[k-1];
+  b.innerHTML='<small>'+MN[k-1].slice(0,3)+'</small><span class="'+cl+'">'+ic+'</span>';b.title=MN[k-1];
   b.onclick=()=>{S.ym=key;S.day=Math.min(S.day,dim(key));save();render()};
   $('year').appendChild(b);
  }
@@ -748,19 +771,19 @@ function drawCal(d){
  $('dh').textContent='Dia '+S.day+' de '+MN[m-1];
  const a=[...d.items.filter(i=>(i.day||1)===S.day),...d.inv.filter(i=>(i.day||1)===S.day)];
  const ul=$('dl');ul.innerHTML=a.length?'':'<li class="empty">Nenhum lançamento neste dia. Os novos lançamentos entram nele.</li>';
- a.forEach(i=>{const li=document.createElement('li');li.innerHTML='<span class="sw" style="background:'+(i.type?color(i.cat):'var(--ok)')+'"></span><span class="n"></span><b>'+(i.type?'−':'+')+money(i.val)+'</b>';li.querySelector('.n').textContent=i.name;ul.appendChild(li)});
+ a.forEach(i=>{const li=document.createElement('li');li.innerHTML='<span class="sw" style="background:'+(i.type?color(i.cat):'var(--ok)')+'"></span><span class="n"></span><b>'+(i.type?'−':'+')+money(i.val)+'</b>';li.querySelector('.n').textContent=noEmo(i.name);ul.appendChild(li)});
 }
 
 /* ---------- humor ---------- */
 let cur='neu';
 function mood(d){
  const s=state(d),c=calc(d),nm=S.name?S.name+', ':'';
- if(s==='empty')return['neu','','Oi! Eu sou '+CHARS[S.char].n+'. Coloque sua renda, seus gastos e sua meta de investimento que eu te acompanho! 💪'];
- if(s==='sad')return['sad','😭 Sem dinheiro e sem investimento',nm+'estou chorando… os gastos passaram '+money(-c.sd)+' da sua renda e ainda não tem nada investido. 😭'];
- if(s==='happy')return['happy','🎉 Meta batida!',nm+'META BATIDA! 🎉 Você investiu '+money(c.inv)+' e ainda sobrou '+money(c.sd)+'. Que orgulho!'];
- if(c.sd<0)return['neu','⚠️ Passou da renda',nm+'seus gastos e investimentos passaram '+money(-c.sd)+' da renda do mês. Dá uma olhada nos lançamentos!'];
- if(d.meta>0)return['neu','📈 Quase lá','Faltam '+money(d.meta-c.inv)+' para bater a meta de investimento. '+nm+'você consegue!'];
- return['neu','🎯 Defina uma meta',nm+'agora defina uma meta de investimento para eu poder comemorar com você!'];
+ if(s==='empty')return['neu','','Oi! Eu sou '+CHARS[S.char].n+'. Coloque sua renda, seus gastos e sua meta de investimento que eu te acompanho!'];
+ if(s==='sad')return['sad','{trending-down} Sem dinheiro e sem investimento',nm+'estou chorando… os gastos passaram '+money(-c.sd)+' da sua renda e ainda não tem nada investido.'];
+ if(s==='happy')return['happy','{circle-check} Meta batida!',nm+'META BATIDA! Você investiu '+money(c.inv)+' e ainda sobrou '+money(c.sd)+'. Que orgulho!'];
+ if(c.sd<0)return['neu','{alert} Passou da renda',nm+'seus gastos e investimentos passaram '+money(-c.sd)+' da renda do mês. Dá uma olhada nos lançamentos!'];
+ if(d.meta>0)return['neu','{trending-up} Quase lá','Faltam '+money(d.meta-c.inv)+' para bater a meta de investimento. '+nm+'você consegue!'];
+ return['neu','{target} Defina uma meta',nm+'agora defina uma meta de investimento para eu poder comemorar com você!'];
 }
 
 function render(){
@@ -776,7 +799,7 @@ function render(){
  $('ml').textContent=d.meta?'Meta de investimento: '+Math.round(mp)+'%':'Meta de investimento não definida';
  $('mb').style.width=Math.min(mp,100)+'%';
  const[m,badge,msg]=mood(d);
- cur=m;$('stage').className='stage m-'+m;$('badge').textContent=badge;$('badge').style.display=badge?'':'none';$('msg').textContent=msg;
+ cur=m;$('stage').className='stage m-'+m;setT($('badge'),badge);$('badge').style.display=badge?'':'none';$('msg').textContent=msg;
  renderPig();confetti(m==='happy'||pigBurst);
  list($('lf'),'items','fixo','items');list($('lv'),'items','var','items');list($('li'),'inv',null,'inv');
  drawCal(d);
@@ -790,15 +813,15 @@ function render(){
  $('lg').innerHTML=ent.length?'':'<span class="empty">Adicione gastos para ver o gráfico.</span>';
  ent.forEach(([c,val])=>{const e=document.createElement('div');
   e.innerHTML='<span class="sw" style="background:'+color(c)+'"></span><span>'+c+'</span><b>'+money(val)+' · '+Math.round(val/t*100)+'%</b>';$('lg').appendChild(e)});
- $('top').textContent=ent.length?'🏆 Você gasta mais com '+ent[0][0]+': '+Math.round(ent[0][1]/t*100)+'% de tudo que gastou.':'Seu maior gasto vai aparecer aqui.';
+ setT($('top'),ent.length?'{trophy} Você gasta mais com '+ent[0][0]+': '+Math.round(ent[0][1]/t*100)+'% de tudo que gastou.':'Seu maior gasto vai aparecer aqui.');
 }
 /* ---------- backup: nuvem (db) + arquivo + texto ---------- */
 const DEV=Math.random().toString(36).slice(2,10);
 let DBN=null,UID=null,cloudFirst=true,cloudMeta=null,bkTimer=null,bkBusy=Promise.resolve(),pruned=false,prevS=null,askYes=null;
 const fmtDT=t=>{const d=new Date(t);return p2(d.getDate())+'/'+p2(d.getMonth()+1)+' às '+p2(d.getHours())+':'+p2(d.getMinutes())};
 const hasData=o=>!!o&&(Object.values(o.months||{}).some(m=>m&&(m.income>0||m.meta>0||(m.items||[]).length||(m.inv||[]).length))||(o.goal&&(o.goal.target>0||o.goal.base>0))||(Array.isArray(o.goals)&&o.goals.some(g=>g&&(g.target>0||g.base>0)))||!!o.name);
-const setChip=(ok,t)=>{const c=$('cchip');c.className='cchip '+(ok?'ok':'off');c.textContent=t};
-const bkStatus=t=>{$('bkst').textContent=t};
+const setChip=(ok,t)=>{const c=$('cchip');c.className='cchip '+(ok?'ok':'off');setT(c,t)};
+const bkStatus=t=>{setT($('bkst'),t)};
 const packDoc=o=>({app:'meu-controle-financeiro',v:1,exportedAt:new Date().toISOString(),data:o});
 const unpack=o=>o&&o.data&&o.app?o.data:o;
 function cleanState(o){
@@ -806,7 +829,7 @@ function cleanState(o){
  const months={},ok=a=>(Array.isArray(a)?a:[]).filter(i=>i&&typeof i.val==='number'&&isFinite(i.val)&&typeof i.name==='string').map(i=>({...i}));
  for(const k in o.months){if(!/^\d{4}-\d{2}$/.test(k))continue;const m=o.months[k]||{};months[k]={income:+m.income||0,meta:+m.meta||0,items:ok(m.items),inv:ok(m.inv)}}
  const g=o.goal||{};
- return{theme:THEMES.some(t=>t[0]===o.theme)?o.theme:'violeta',mode:['auto','light','dark'].includes(o.mode)?o.mode:'auto',char:(Number.isInteger(o.char)&&o.char>=0&&o.char<=4)?o.char:0,name:String(o.name||'').slice(0,60),ym:CUR,day:now.getDate(),months,goal:{name:String(g.name||'').slice(0,80),target:+g.target||0,base:+g.base||0},goals:(Array.isArray(o.goals)?o.goals:[]).slice(0,12).filter(x=>x&&typeof x==='object').map(x=>({id:String(x.id||('g'+Math.random().toString(36).slice(2,8))).slice(0,40),name:String(x.name||'').slice(0,80),target:+x.target||0,base:+x.base||0,icon:String(x.icon||'🎯').slice(0,8)})),gsel:String(o.gsel||'').slice(0,40),updatedAt:Date.now()}
+ return{theme:THEMES.some(t=>t[0]===o.theme)?o.theme:'violeta',mode:['auto','light','dark'].includes(o.mode)?o.mode:'auto',char:(Number.isInteger(o.char)&&o.char>=0&&o.char<=4)?o.char:0,name:String(o.name||'').slice(0,60),ym:CUR,day:now.getDate(),months,goal:{name:String(g.name||'').slice(0,80),target:+g.target||0,base:+g.base||0},goals:(Array.isArray(o.goals)?o.goals:[]).slice(0,12).filter(x=>x&&typeof x==='object').map(x=>({id:String(x.id||('g'+Math.random().toString(36).slice(2,8))).slice(0,40),name:String(x.name||'').slice(0,80),target:+x.target||0,base:+x.base||0,icon:String(x.icon||'target').slice(0,24)})),gsel:String(o.gsel||'').slice(0,40),updatedAt:Date.now()}
 }
 function applyState(o,msg){
  const c=cleanState(o);
@@ -830,11 +853,11 @@ function pushNow(){
    await col.doc('latest').set(body);
    const d=new Date();
    await col.doc('d-'+d.getFullYear()+'-'+p2(d.getMonth()+1)+'-'+p2(d.getDate())).set(body);
-   setChip(true,'☁️ Backup ativo');bkStatus('☁️ Cópia salva na nuvem em '+fmtDT(body.savedAt)+'.');
+   setChip(true,'{cloud} Backup ativo');bkStatus('{cloud} Cópia salva na nuvem em '+fmtDT(body.savedAt)+'.');
    if(!pruned){pruned=true;await prune(col)}
    loadHist();return true
   }catch(e){
-   setChip(false,'⚠️ Backup falhou');
+   setChip(false,'{alert} Backup falhou');
    bkStatus(e&&e.code==='quota_exceeded'?'O espaço de backup na nuvem está cheio. Baixe o arquivo de backup.':'Não consegui salvar na nuvem agora. Baixe o arquivo de backup por segurança.');
    return false
   }
@@ -864,17 +887,17 @@ async function loadHist(){
 }
 function onCloud(snap){
  const first=cloudFirst;cloudFirst=false;
- setChip(true,'☁️ Backup ativo');
+ setChip(true,'{cloud} Backup ativo');
  if(!snap.exists){
-  if(first){if(hasData(S))pushNow();else bkStatus('☁️ Backup na nuvem ativo. A primeira cópia é criada quando você lançar algo.')}
+  if(first){if(hasData(S))pushNow();else bkStatus('{cloud} Backup na nuvem ativo. A primeira cópia é criada quando você lançar algo.')}
   return
  }
  const d=snap.data()||{};cloudMeta=d;
  if(d.device===DEV)return;
  const newer=(d.updatedAt||0)>(S.updatedAt||0)+1500;
- if(first&&!hasData(S)){try{applyState(JSON.parse(d.payload),'☁️ Recuperei seus dados da nuvem (cópia de '+fmtDT(d.savedAt)+').')}catch(e){}return}
+ if(first&&!hasData(S)){try{applyState(JSON.parse(d.payload),'{cloud} Recuperei seus dados da nuvem (cópia de '+fmtDT(d.savedAt)+').')}catch(e){}return}
  if(newer){$('bkbt').textContent='Há dados mais recentes salvos na nuvem ('+fmtDT(d.savedAt)+'), talvez de outro aparelho.';$('bkban').hidden=false}
- else if(first){bkStatus('☁️ Última cópia na nuvem: '+fmtDT(d.savedAt)+'.');if((S.updatedAt||0)>(d.updatedAt||0)+1500)pushNow()}
+ else if(first){bkStatus('{cloud} Última cópia na nuvem: '+fmtDT(d.savedAt)+'.');if((S.updatedAt||0)>(d.updatedAt||0)+1500)pushNow()}
 }
 $('bkuse').onclick=()=>{$('bkban').hidden=true;try{applyState(JSON.parse(cloudMeta.payload),'Dados da nuvem carregados.')}catch(e){bkStatus('Não consegui ler a cópia da nuvem.')}};
 $('bkign').onclick=()=>{$('bkban').hidden=true;save();pushNow()};
@@ -903,9 +926,9 @@ $('bkCopy').onclick=async()=>{const t=$('bkTxt');if(!t.value)$('bkGen').click();
 $('bkPaste').onclick=()=>{try{const data=unpack(JSON.parse($('bkTxt').value));if(!cleanState(data))throw 0;ask('Restaurar a partir do texto colado? Isso substitui os dados que estão na tela agora (dá para desfazer).',()=>applyState(data,'Backup do texto restaurado.'))}catch(x){bkStatus('O texto da caixa não é um backup válido.')}};
 (async()=>{
  try{if(window.claude&&claude.use){DBN=await claude.use('db');const u=await claude.use('user');UID=u?await u.id():null}}catch(e){}
- if(!DBN||!UID){DBN=null;setChip(false,'💾 Só neste aparelho');bkStatus('Seus dados ficam salvos neste aparelho. Baixe o arquivo de backup de vez em quando para não perder nada.');loadHist();return}
+ if(!DBN||!UID){DBN=null;setChip(false,'{hdd} Só neste aparelho');bkStatus('Seus dados ficam salvos neste aparelho. Baixe o arquivo de backup de vez em quando para não perder nada.');loadHist();return}
  loadHist();
- try{DBN.collection('data/users/'+UID).doc('latest').onSnapshot(onCloud,()=>{setChip(false,'💾 Só neste aparelho');bkStatus('A conexão com o backup na nuvem foi interrompida. Recarregue a página.')})}catch(e){setChip(false,'💾 Só neste aparelho')}
+ try{DBN.collection('data/users/'+UID).doc('latest').onSnapshot(onCloud,()=>{setChip(false,'{hdd} Só neste aparelho');bkStatus('A conexão com o backup na nuvem foi interrompida. Recarregue a página.')})}catch(e){setChip(false,'{hdd} Só neste aparelho')}
 })();
 applyLook();render();
 </script>
