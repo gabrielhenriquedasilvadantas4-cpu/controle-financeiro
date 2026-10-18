@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="color-scheme" content="light dark">
-<meta name="supported-color-schemes" content="light dark">
+<meta name="color-scheme" content="only light">
+<meta name="supported-color-schemes" content="only light">
 <meta name="darkreader-lock">
 <title>Meu Controle Financeiro</title>
 <style>
@@ -12,9 +12,8 @@
 --bg:#f4f2fb;--card:#ffffff;--tx:#1d1a2b;--mut:#6f6a85;--bd:#e6e2f3;--ac:#7c5cff;--ac2:#b06cff;--ok:#18b37a;--bad:#ef4d6a;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-:root{color-scheme:light dark}
-:root[data-mode="light"]{color-scheme:light}
-:root[data-mode="dark"]{color-scheme:dark}
+:root{color-scheme:only light}
+option{background:var(--card);color:var(--tx)}
 :root[data-mode="dark"]{--bg:#0f0d17;--card:#1a1726;--tx:#f1eefc;--mut:#9a95b4;--bd:#2b2740}
 @media (prefers-color-scheme:dark){:root:not([data-mode="light"]):not([data-mode="dark"]){--bg:#0f0d17;--card:#1a1726;--tx:#f1eefc;--mut:#9a95b4;--bd:#2b2740}}
 :root[data-theme="oceano"]{--ac:#0a9bd8;--ac2:#2de0c8}
