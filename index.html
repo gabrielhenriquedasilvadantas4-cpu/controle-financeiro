@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -639,7 +638,7 @@ function list(el,arr,type,key){
  el.innerHTML=a.length?'':'<li class="empty">Nada por aqui ainda.</li>';
  a.forEach(i=>{
   const li=document.createElement('li');
-  li.className=(key==='items'&&i.paid)?'paid':'';li.innerHTML=(key==='items'?'<input type="checkbox" class="pd" title="Já paguei" aria-label="Já paguei" '+(i.paid?'checked':'')+'>':'')+'<span class="sw" style="background:'+(i.cat?color(i.cat):'var(--ac)')+'"></span><span class="n"><span></span><small>'+(i.cat?i.cat+' · ':'')+p2(i.day||1)+'/'+mm+'</small></span><b>'+money(i.val)+'</b><button class="x" title="Remover" aria-label="Remover">'+IC('x')+'</button>';
+  li.innerHTML='<span class="sw" style="background:'+(i.cat?color(i.cat):'var(--ac)')+'"></span><span class="n"><span></span><small>'+(i.cat?i.cat+' · ':'')+p2(i.day||1)+'/'+mm+'</small></span><b>'+money(i.val)+'</b><button class="x" title="Remover" aria-label="Remover">'+IC('x')+'</button>';
   li.querySelector('.n span').textContent=noEmo(i.name);
   li.querySelector('.x').onclick=()=>{M()[key]=M()[key].filter(z=>z.id!==i.id);save();render()};
   el.appendChild(li);
@@ -969,7 +968,8 @@ const st=document.createElement('style');st.textContent=`
 .yc small+em{grid-column:2}
 .ex{margin:-4px 0 12px}
 .ghbox a{color:var(--ac)}
-.pd{width:22px;height:22px;accent-color:var(--ok);flex:none;cursor:pointer}
+.st{flex:none;border:1px solid var(--bd);background:var(--bg);border-radius:99px;padding:5px 11px;font-size:.78rem;font-weight:600;cursor:pointer;color:var(--mut)}
+.st.ok{background:color-mix(in srgb,var(--ok) 18%,var(--card));border-color:var(--ok);color:var(--ok)}
 li.paid .n span{text-decoration:line-through;opacity:.55}
 `;document.head.appendChild(st);
 
@@ -993,7 +993,7 @@ mood=function(d){const s=state(d),c=calc(d),n=S.name?S.name+', ':'',falta=d.item
  else r=['neu','{alert} '+(c.sd<0?'Investiu além da conta':'Falta pagar contas'),c.sd<0?n+'você investiu mais do que sobrou depois das contas. Revise os valores.':n+'você já investiu! Falta pagar '+money(falta)+' em contas para eu comemorar.'];
  if(r[0]==='happy'&&lastMood!=='happy'){burstUntil=Date.now()+5000;setTimeout(()=>{if(!pigBurst)confettiRaw(false)},5200)}
  lastMood=r[0];return r};
-['click','input','change'].forEach(ev=>document.addEventListener(ev,e=>{const t=e.target;if(t&&t.closest&&t.closest('#fa,#va,#ia,#gadd,.pd,.x,.sr,#inc,#meta'))engaged=true},true));
+['click','input','change'].forEach(ev=>document.addEventListener(ev,e=>{const t=e.target;if(t&&t.closest&&t.closest('#fa,#va,#ia,#gadd,.st,.x,.sr,#inc,#meta'))engaged=true},true));
 const _face=face;
 face=function(P){const h=_face(P),{ex=28,my=20,mk=K}=P;
  const ser=[-1,1].map(s=>`<ellipse cx="${s*ex}" cy="0" rx="5.2" ry="6.6" fill="${mk}"/><circle cx="${s*ex-1.6}" cy="-2.4" r="1.9" fill="#fff"/><path d="M${s*ex-8} -11 H${s*ex+8}" stroke="${mk}" stroke-width="3.4" stroke-linecap="round"/>`).join('')
@@ -1009,8 +1009,8 @@ const addMonths=(ym,n)=>{const[y,m]=ym.split('-').map(Number),d=new Date(y,m-1+n
 const mon=ym=>S.months[ym]||(S.months[ym]={income:0,meta:0,items:[],inv:[]});
 [['lf','fixo'],['lv','var']].forEach(([id])=>{
  const r=document.createElement('div');r.className='row ex';
- r.innerHTML='<select class="rp"><option value="1">À vista (só este mês)</option><option value="p">Parcelado</option><option value="r">Repetir todo mês</option></select><input class="pn" type="number" min="2" max="120" placeholder="Nº de parcelas" style="display:none"><select class="pm" style="display:none"><option value="e">Valor de cada parcela</option><option value="t">Valor total (dividir)</option></select>';
- $(id).before(r);
+ r.innerHTML='<select class="rp"><option value="r">Fixo: repetir todo mês</option><option value="p">Parcelado (ex.: 12x)</option><option value="1">Só este mês</option></select><input class="pn" type="number" min="2" max="120" placeholder="Nº de parcelas (ex.: 12)" style="display:none"><select class="pm" style="display:none"><option value="e">Valor de cada parcela</option><option value="t">Valor total (dividir)</option></select>';
+ $(id).before(r);if(id==='lv')r.querySelector('.rp').value='1';
  r.querySelector('.rp').onchange=e=>{const p=e.target.value==='p';r.querySelector('.pn').style.display=p?'':'none';r.querySelector('.pm').style.display=p?'':'none'};
 });
 const _add=add;
@@ -1038,11 +1038,12 @@ list=function(el,arr,type,key){
  const mm=S.ym.slice(5),a=type?M()[arr].filter(i=>i.type===type):M()[arr];
  el.innerHTML=a.length?'':'<li class="empty">Nada por aqui ainda.</li>';
  a.forEach(i=>{const li=document.createElement('li'),tag=i.pn?' · parcela '+i.pc+'/'+i.pn:i.rec?' · todo mês':'';
-  li.innerHTML='<span class="sw" style="background:'+(i.cat?color(i.cat):'var(--ac)')+'"></span><span class="n"><span></span><small>'+(i.cat?i.cat+' · ':'')+p2(i.day||1)+'/'+mm+tag+'</small></span><b>'+money(i.val)+'</b>'
+  li.className=(key==='items'&&i.paid)?'paid':'';li.innerHTML='<span class="sw" style="background:'+(i.cat?color(i.cat):'var(--ac)')+'"></span><span class="n"><span></span><small>'+(i.cat?i.cat+' · ':'')+p2(i.day||1)+'/'+mm+tag+'</small></span><b>'+money(i.val)+'</b>'
+   +(key==='items'?'<button type="button" class="st'+(i.paid?' ok':'')+'" title="Clique para alternar entre pago e pendente">'+(i.paid?'Pago':'Pendente')+'</button>':'')
    +(i.grp?'<button class="x sr" title="Remover este e os próximos meses" aria-label="Remover este e os próximos meses">'+IC('trash')+'</button>':'')
    +'<button class="x one" title="Remover só este mês" aria-label="Remover">'+IC('x')+'</button>';
   li.querySelector('.n span').textContent=noEmo(i.name);
-  const pd=li.querySelector('.pd');if(pd)pd.onchange=()=>{i.paid=pd.checked;save();render()};
+  const st=li.querySelector('.st');if(st)st.onclick=()=>{i.paid=!i.paid;save();render()};
   li.querySelector('.one').onclick=()=>{if(i.rec){const r=(S.rec||[]).find(z=>z.id===i.grp);if(r)(r.skip=r.skip||[]).push(S.ym)}M()[key]=M()[key].filter(z=>z.id!==i.id);save();render()};
   const sr=li.querySelector('.sr');if(sr)sr.onclick=()=>{if(!confirm('Remover "'+noEmo(i.name)+'" deste mês e de todos os próximos?'))return;delSeries(i);save();render()};
   el.appendChild(li)})};
